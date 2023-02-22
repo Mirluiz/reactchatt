@@ -1,5 +1,9 @@
 # react chat component | BETA
 
+<p align="center">
+ <img src='https://github.com/Mirluiz/reactchatt/blob/master/demo.gif'/>
+</p>
+
 ## Getting Started
 
 ```bash
