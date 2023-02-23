@@ -52,13 +52,13 @@ import { ReactChat } from "renchat";
 
 ### Custom renders
 
-|                    |     Description      |                     Type                     |
-| :----------------: | :------------------: | :------------------------------------------: | ----- | -------- | ------------------------- |
-| renderTextMessage  | Custom text message  | `(message: MessageTextProps, order: "start"  | "end" | "middle" | "single") => JSX.Element` |
-| renderImageMessage | Custom image message | `(message: MessageImageProps, order: "start" | "end" | "middle" | "single") => JSX.Element` |
-| renderFileMessage  | Custom file message  | `(message: MessageFileProps, order: "start"  | "end" | "middle" | "single") => JSX.Element` |
+|                    |     Description      |                     Type                     | 
+| :----------------: | :------------------: |:--------------------------------------------:| 
+| renderTextMessage  | Custom text message  | `(message: MessageTextProps, order: "start"  <br/>| "end" | "middle" | "single") => JSX.Element` |
+| renderImageMessage | Custom image message | `(message: MessageImageProps, order: "start" <br/>| "end" | "middle" | "single") => JSX.Element` |
+| renderFileMessage  | Custom file message  | `(message: MessageFileProps, order: "start"  <br/>| "end" | "middle" | "single") => JSX.Element` |
 
-### Functions
+### useChatApi
 
 |          |       Description       |          Type          |
 | :------: | :---------------------: | :--------------------: |
