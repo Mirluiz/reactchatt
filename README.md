@@ -80,3 +80,10 @@ to discuss what you would like to change.
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+
+PS I am open for job offers :) 
+{
+mail: zey.verdiyev@gmail.com,
+telegram: @mirluiz
+}
