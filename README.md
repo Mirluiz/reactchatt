@@ -11,7 +11,8 @@ npm install reactchatt
 ```
 
 ## Demo
- [Playground](https://reactchatt.az)
+
+[Playground](https://reactchatt.az)
 
 ## Usage
 
@@ -22,21 +23,25 @@ import { ReactChat } from "renchat";
 ```
 
 ## User guide
+
 ### Props
 
-|                   |         Description          |          Type          | Default |
-|:-----------------:|:----------------------------:|:----------------------:|:-------:|
-|     messages      |      Array of messages       | `Array<MessageProps>`  |   []    |
-|    placeholder    |     Composer placeholder     |        `string`        |  Write  |
-|      typing       |       Typing animation       |       `boolean`        |  false  |
-|       icon        |      Show user's icons       |       `boolean`        |  false  |
-|       title       |      Show user's titles      |       `boolean`        |  false  |
-|     threshold     | Edge reach threshold trigger |        `number`        |    0    |
-|      loading      |      Loading animation       |       `boolean`        |  false  |
+|             |         Description          |         Type          | Default  |
+| :---------: | :--------------------------: | :-------------------: | :------: |
+|  messages   |      Array of messages       | `Array<MessageProps>` |    []    |
+| placeholder |     Composer placeholder     |       `string`        |  Write   |
+|   typing    |       Typing animation       |       `boolean`       |  false   |
+|    icon     |      Show user's icons       |       `boolean`       |  false   |
+|    title    |      Show user's titles      |       `boolean`       |  false   |
+|  threshold  | Edge reach threshold trigger |       `number`        |    0     |
+|   loading   |      Loading animation       |       `boolean`       |  false   |
+|    date     | Show date on messenger body  |       `boolean`       |   true   |
+| dateFormat  |    Messenger date format     |       `boolean`       | 'MMMM D' |
 
 ### Events
+
 |                    |                      Description                      |                   Type                   |
-|:------------------:|:-----------------------------------------------------:|:----------------------------------------:|
+| :----------------: | :---------------------------------------------------: | :--------------------------------------: |
 |   onMessageClick   |                     Message click                     |          `(id: string) => void`          |
 | onMessageDblClick  |                 Message double click                  |          `(id: string) => void`          |
 | onMessageItemClick | Message item click callback<br/> (e.g Multi messages) | `(message: string, id: string) => void;` |
@@ -48,23 +53,24 @@ import { ReactChat } from "renchat";
 ### Custom renders
 
 |                    |     Description      |                     Type                     |
-|:------------------:|:--------------------:|:--------------------------------------------:|
-| renderTextMessage  | Custom text message  | `(message: MessageTextProps, order: "start"  | "end" | "middle" | "single") => JSX.Element`          |
-| renderImageMessage | Custom image message | `(message: MessageImageProps, order: "start" | "end" | "middle" | "single") => JSX.Element`          |
-| renderFileMessage  | Custom file message  | `(message: MessageFileProps, order: "start"  | "end" | "middle" | "single") => JSX.Element`          |
+| :----------------: | :------------------: | :------------------------------------------: | ----- | -------- | ------------------------- |
+| renderTextMessage  | Custom text message  | `(message: MessageTextProps, order: "start"  | "end" | "middle" | "single") => JSX.Element` |
+| renderImageMessage | Custom image message | `(message: MessageImageProps, order: "start" | "end" | "middle" | "single") => JSX.Element` |
+| renderFileMessage  | Custom file message  | `(message: MessageFileProps, order: "start"  | "end" | "middle" | "single") => JSX.Element` |
 
-### Functions 
+### Functions
+
 |          |       Description       |          Type          |
-|:--------:|:-----------------------:|:----------------------:|
+| :------: | :---------------------: | :--------------------: |
 | scrollTo | Scroll to exact message | `(id: string) => void` |
 
 ## Plans
+
 |                                   |             |
-|:---------------------------------:|:-----------:|
+| :-------------------------------: | :---------: |
 |           Multi images            | In progress |
 |         Messenger header          |    Idle     |
 | Messenger header typing animation |    Idle     |
-
 
 ## Contributing
 
