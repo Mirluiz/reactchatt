@@ -82,7 +82,9 @@ to discuss what you would like to change.
 [MIT](https://choosealicense.com/licenses/mit/)
 
 
-PS I am open for job offers :) 
+
+## P.S. 
+I am open for job offers :)
 {
 mail: zey.verdiyev@gmail.com,
 telegram: @mirluiz
