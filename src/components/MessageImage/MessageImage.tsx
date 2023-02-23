@@ -54,7 +54,7 @@ const Message: FC<
         >
           <Images images={images} />
           <MessageMeta
-            time={"asd"} // TODO: change this
+            date={date}
             status={status}
             chip={true}
             position={position}

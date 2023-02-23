@@ -13,9 +13,9 @@ import { Message, MessageFile, MessageImage } from "../components";
 import { Loader } from "../elements";
 import { ThemeOptions } from "../@types/theme";
 import { setThemeToDocument } from "../utils/theme";
-import { MessageTextProps } from "../components/Message/MessageType";
-import { MessageImageProps } from "../components/MessageImage/MessageImageType";
-import { MessageFileProps } from "../components/MessageFile/MessageFileType";
+import { MessageTextProps } from "../components";
+import { MessageImageProps } from "../components";
+import { MessageFileProps } from "../components";
 import { ejectStyles } from "../utils/style";
 import { PartialMessengerProps } from "./MessengerType";
 
@@ -145,6 +145,8 @@ const Messenger: FC<
           <MessengerBody
             threshold={props?.threshold ?? 0}
             typing={props?.typing ?? false}
+            date={props?.date ?? true}
+            dateFormat={props?.dateFormat ?? "MMMM D"}
             title={props?.title ?? false}
             icon={props?.icon ?? true}
             pulling={props?.pulling ?? true}

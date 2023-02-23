@@ -9,6 +9,8 @@ export interface MessengerBodyProps {
   icon: boolean;
   pulling: boolean;
   loading: boolean;
+  date: boolean;
+  dateFormat: string;
   onMessageClick?: (id: string) => void;
   onMessageDblClick?: (id: string) => void;
   onMessageItemClick?: (message: string, id: string) => void;

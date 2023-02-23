@@ -2,6 +2,7 @@ import React, {
   FC,
   memo,
   ReactElement,
+  useCallback,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -15,6 +16,7 @@ import { animate, raf } from "../utils/animation";
 import { Loader } from "../elements";
 import { MessengerBodyProps } from "./MessengerBodyType";
 import { MessageProps } from "../@types/message";
+import { MessageSystemDate } from "../components";
 
 const ANIMATION_DURATION = 120;
 
@@ -58,16 +60,6 @@ const MessengerBody: FC<
       scrollC.scrollTop = scrollC.scrollHeight - scrollC.offsetHeight;
     });
   }, []);
-
-  useLayoutEffect(() => {
-    if (containerRef && containerRef.current) {
-      containerRef.current.addEventListener("scroll", scrolling);
-    }
-
-    return () => {
-      containerRef?.current?.removeEventListener("scroll", scrolling);
-    };
-  }, [messages]);
 
   useLayoutEffect(() => {
     if (!containerRef.current || !scrollContainerRef.current) return;
@@ -205,46 +197,55 @@ const MessengerBody: FC<
     }
   };
 
-  const checkOrder = (
-    messages: Array<MessageProps>,
-    index: number
-  ): "start" | "middle" | "end" | "single" => {
-    let ret: "start" | "middle" | "end" | "single";
-    let prevMsg: MessageProps | undefined = messages[index - 1],
-      currentMsg: MessageProps = messages[index],
-      nextMsg: MessageProps | undefined = messages[index + 1];
+  const sameDate = useCallback(
+    (messages: Array<MessageProps>, index: number): boolean => {
+      let ret: boolean = false;
+      let prevMsg: MessageProps | undefined = messages[index - 1],
+        currentMsg: MessageProps | undefined = messages[index];
 
-    if (
-      (!prevMsg || prevMsg.position !== currentMsg.position) &&
-      (!nextMsg || nextMsg.position !== currentMsg.position)
-    ) {
-      ret = "single";
-    } else if (!nextMsg || nextMsg.position !== currentMsg.position) {
-      ret = "end";
-    } else if (!prevMsg || prevMsg.position !== currentMsg.position) {
-      ret = "start";
-    } else {
-      ret = "middle";
-    }
+      if (!prevMsg) {
+        // single message - start of conversation
+        ret = true;
+      } else if (
+        prevMsg.date.getFullYear() === currentMsg.date.getFullYear() &&
+        prevMsg.date.getMonth() === currentMsg.date.getMonth() &&
+        prevMsg.date.getDate() === currentMsg.date.getDate()
+      ) {
+        ret = true;
+      }
 
-    return ret;
-  };
+      return ret;
+    },
+    []
+  );
 
-  const scrolling = () => {
-    if (!containerRef.current) return;
-    let { current } = containerRef;
-    if (current.scrollTop - threshold > 0) {
-      endReachedStatus.current = false;
-    }
-    if (
-      !endReachedStatus?.current &&
-      current.scrollTop - threshold < 0 &&
-      current.scrollHeight > current.clientHeight
-    ) {
-      endReachedStatus.current = true;
-      onEdgeReach();
-    }
-  };
+  const checkOrder = useCallback(
+    (
+      messages: Array<MessageProps>,
+      index: number
+    ): "start" | "middle" | "end" | "single" => {
+      let ret: "start" | "middle" | "end" | "single";
+      let prevMsg: MessageProps | undefined = messages[index - 1],
+        currentMsg: MessageProps = messages[index],
+        nextMsg: MessageProps | undefined = messages[index + 1];
+
+      if (
+        (!prevMsg || prevMsg.position !== currentMsg.position) &&
+        (!nextMsg || nextMsg.position !== currentMsg.position)
+      ) {
+        ret = "single";
+      } else if (!nextMsg || nextMsg.position !== currentMsg.position) {
+        ret = "end";
+      } else if (!prevMsg || prevMsg.position !== currentMsg.position) {
+        ret = "start";
+      } else {
+        ret = "middle";
+      }
+
+      return ret;
+    },
+    []
+  );
 
   return (
     <>
@@ -285,34 +286,60 @@ const MessengerBody: FC<
         </div>
       </div>
       <div className="rc-messages-scroll" ref={scrollContainerRef}>
-        <div className="rc-container" ref={containerRef}>
+        <div
+          className="rc-container"
+          ref={containerRef}
+          onScroll={() => {
+            if (!containerRef.current) return;
+            let { current } = containerRef;
+            if (current.scrollTop - threshold > 0) {
+              endReachedStatus.current = false;
+            }
+            if (
+              !endReachedStatus?.current &&
+              current.scrollTop - threshold < 0 &&
+              current.scrollHeight > current.clientHeight
+            ) {
+              endReachedStatus.current = true;
+              onEdgeReach();
+            }
+          }}
+        >
           <div className="rc-list">
             {renderMessages.current.map((message, index) => {
               return (
-                <Layer
-                  id={message.id}
-                  position={message.position}
-                  key={message.id}
-                >
-                  {isText(message) ? (
-                    renderTextMessage(
-                      message,
-                      checkOrder(renderMessages.current, index)
-                    )
-                  ) : isImage(message) ? (
-                    renderImageMessage(
-                      message,
-                      checkOrder(renderMessages.current, index)
-                    )
-                  ) : isFile(message) ? (
-                    renderFileMessage(
-                      message,
-                      checkOrder(renderMessages.current, index)
-                    )
-                  ) : (
-                    <></>
+                <>
+                  {!sameDate(renderMessages.current, index) && props.date && (
+                    <MessageSystemDate
+                      date={message.date}
+                      format={props.dateFormat}
+                    />
                   )}
-                </Layer>
+                  <Layer
+                    id={message.id}
+                    position={message.position}
+                    key={message.id}
+                  >
+                    {isText(message) ? (
+                      renderTextMessage(
+                        message,
+                        checkOrder(renderMessages.current, index)
+                      )
+                    ) : isImage(message) ? (
+                      renderImageMessage(
+                        message,
+                        checkOrder(renderMessages.current, index)
+                      )
+                    ) : isFile(message) ? (
+                      renderFileMessage(
+                        message,
+                        checkOrder(renderMessages.current, index)
+                      )
+                    ) : (
+                      <></>
+                    )}
+                  </Layer>
+                </>
               );
             })}
           </div>

@@ -82,7 +82,7 @@ const Message: FC<
               >
                 {text}
               </Typography>
-              <MessageMeta time={"12:00 PM"} status={1} position={position} />
+              <MessageMeta date={date} status={1} position={position} />
             </div>
           </div>
         </div>

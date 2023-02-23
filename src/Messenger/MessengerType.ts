@@ -1,6 +1,6 @@
 import { MessageProps } from "../@types/message";
-import { MessengerBodyProps } from "../MessengerBody/MessengerBodyType";
-import { MessengerComposerProps } from "../MessengerComposer/MessengerComposerType";
+import { MessengerBodyProps } from "../MessengerBody";
+import { MessengerComposerProps } from "../MessengerComposer";
 
 export interface PartialMessengerProps
   extends Partial<MessengerBodyProps>,

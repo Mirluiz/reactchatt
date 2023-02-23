@@ -3,6 +3,7 @@ import {
   MessageFileStyle,
   MessageMetaStyle,
   MessageReplyStyle,
+  MessageSystemStyle,
 } from "../components";
 import {
   MessengerComposerStyle,
@@ -23,6 +24,7 @@ export const ejectStyles = (document: Document) => {
     MessageFileStyle,
     MessageMetaStyle,
     MessageReplyStyle,
+    MessageSystemStyle,
     MessengerComposerStyle,
     MessengerBodyStyle,
     MessengerStyle,

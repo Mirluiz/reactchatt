@@ -12,3 +12,6 @@ export * from "./MessageFile";
 
 export { default as MessageReply } from "./MessageReply";
 export * from "./MessageReply";
+
+export { default as MessageSystemDate } from "./MessageSystemDate";
+export * from "./MessageSystemDate";

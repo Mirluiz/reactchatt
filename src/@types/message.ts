@@ -1,27 +1,28 @@
-import { MessageTextProps } from "../components/Message/MessageType";
-import { MessageFileProps } from "../components/MessageFile/MessageFileType";
-import { MessageImageProps } from "../components/MessageImage/MessageImageType";
+import { MessageTextProps } from "../components";
+import { MessageFileProps } from "../components";
+import { MessageImageProps } from "../components";
 
 export type MessageCoreProps = {
-	id: string;
-	title: string;
-	position: "left" | "right";
-	status: MessageStatus;
-	pending?: boolean;
-	edited?: boolean;
-	date: string;
-	type: "text" | "file" | "img";
-	repliedMessage?: MessageProps;
+  id: string;
+  title: string;
+  position: "left" | "right";
+  status: MessageStatus;
+  pending?: boolean;
+  edited?: boolean;
+  date: Date;
+  dateFormat?: string;
+  type: "text" | "file" | "img" | string; // string is stand for "any"
+  repliedMessage?: MessageProps;
 };
 
 export enum MessageStatus {
-	created,
-	sent,
-	delivered,
-	read,
+  created,
+  sent,
+  delivered,
+  read,
 }
 
 export type MessageProps =
-	| MessageTextProps
-	| MessageFileProps
-	| MessageImageProps;
+  | MessageTextProps
+  | MessageFileProps
+  | MessageImageProps;

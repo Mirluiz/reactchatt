@@ -75,7 +75,7 @@ const MessageFile: FC<
                 </div>
               </div>
               <Files files={files} message={id} />
-              <MessageMeta time={date} status={1} position={position} />
+              <MessageMeta date={date} status={1} position={position} />
             </div>
           </div>
         </div>

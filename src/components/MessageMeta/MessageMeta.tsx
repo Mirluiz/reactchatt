@@ -1,15 +1,16 @@
 import React, { FC, useEffect } from "react";
 import { MessageStatus } from "../../@types/message";
 import { useTheme } from "../../hooks";
+import moment from "moment";
 
 const MessageMeta: FC<{
   position: "left" | "right";
-  time: string;
+  date: Date;
   status: MessageStatus | undefined;
   chip?: boolean;
   shift?: boolean;
 }> = (props) => {
-  const { time, status, chip, shift, position } = props;
+  const { date, status, chip, shift, position } = props;
   const theme = useTheme();
 
   const shiftStyle = {
@@ -48,7 +49,7 @@ const MessageMeta: FC<{
                 : theme.palette.onChip,
             }}
           >
-            {time}
+            {moment(date).format("hh:mm A")}
           </span>
         </div>
         {position === "right" && (
