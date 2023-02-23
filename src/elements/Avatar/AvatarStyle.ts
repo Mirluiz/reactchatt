@@ -14,8 +14,15 @@ export const style = `
 	border-radius: var(--rc-sx-1);
 }
 
+.rc-avatar.square img {
+	border-radius: var(--rc-sx-1);
+}
+
 .rc-avatar.rounded {
 	border-radius: 100%;
-	background-color: yellow;
+}
+
+.rc-avatar.rounded img {
+	border-radius: 100%;
 }
 `;

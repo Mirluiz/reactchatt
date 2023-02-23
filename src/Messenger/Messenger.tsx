@@ -112,7 +112,7 @@ const Messenger: FC<
   return (
     <ChatContext.Provider
       value={{
-        icon: props.icon ?? true,
+        avatar: props.avatar ?? true,
         onClick: (id) => {
           props.onMessageClick && props.onMessageClick(id);
         },
@@ -148,7 +148,7 @@ const Messenger: FC<
             date={props?.date ?? true}
             dateFormat={props?.dateFormat ?? "MMMM D"}
             title={props?.title ?? false}
-            icon={props?.icon ?? true}
+            avatar={props?.avatar ?? true}
             pulling={props?.pulling ?? true}
             loading={props?.loading ?? false}
             onMessageClick={onMessageClick}

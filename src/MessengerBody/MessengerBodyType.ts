@@ -6,7 +6,7 @@ export interface MessengerBodyProps {
   threshold: number;
   title: boolean;
   typing: boolean;
-  icon: boolean;
+  avatar: boolean;
   pulling: boolean;
   loading: boolean;
   date: boolean;

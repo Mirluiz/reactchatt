@@ -12,15 +12,24 @@ const MessageFile: FC<
     order: "start" | "end" | "middle" | "single";
   }
 > = (props) => {
-  const { files, order, id, date, position, repliedMessage, title } = props;
-  const { icon, onClick, onLongClick } = useChat();
+  const {
+    files,
+    order,
+    id,
+    date,
+    position,
+    repliedMessage,
+    title,
+    avatar: userAvatar,
+  } = props;
+  const { avatar, onClick, onLongClick } = useChat();
   const theme = useTheme();
 
   const tail = order === "end" || order === "single";
 
   return (
     <div className="rc-message-file_container">
-      {icon && (
+      {avatar && (
         <>
           {position === "left" && !tail && (
             <div
@@ -30,7 +39,9 @@ const MessageFile: FC<
               }}
             />
           )}
-          {position === "left" && tail && <Avatar />}
+          {position === "left" && tail && (
+            <Avatar img={userAvatar} name={title} />
+          )}
         </>
       )}
       <div

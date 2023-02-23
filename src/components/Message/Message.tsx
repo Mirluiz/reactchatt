@@ -11,15 +11,24 @@ const Message: FC<
     order: "start" | "end" | "middle" | "single";
   }
 > = (props) => {
-  const { order, id, position, date, title, repliedMessage, text } = props;
-  const { icon, onClick, onLongClick } = useChat();
+  const {
+    order,
+    id,
+    position,
+    date,
+    title,
+    repliedMessage,
+    text,
+    avatar: userAvatar,
+  } = props;
+  const { avatar, onClick, onLongClick } = useChat();
   const theme = useTheme();
 
   const tail = order === "end" || order === "single";
 
   return (
     <div className="rc-message-text_container">
-      {icon && (
+      {avatar && (
         <>
           {position === "left" && !tail && (
             <div
@@ -29,7 +38,9 @@ const Message: FC<
               }}
             />
           )}
-          {position === "left" && tail && <Avatar />}
+          {position === "left" && tail && (
+            <Avatar img={userAvatar} name={title} />
+          )}
         </>
       )}
       <div

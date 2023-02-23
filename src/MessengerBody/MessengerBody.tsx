@@ -230,16 +230,34 @@ const MessengerBody: FC<
         nextMsg: MessageProps | undefined = messages[index + 1];
 
       if (
-        (!prevMsg || prevMsg.position !== currentMsg.position) &&
-        (!nextMsg || nextMsg.position !== currentMsg.position)
+        prevMsg?.owner !== currentMsg?.owner ||
+        currentMsg?.owner !== nextMsg?.owner
       ) {
-        ret = "single";
-      } else if (!nextMsg || nextMsg.position !== currentMsg.position) {
-        ret = "end";
-      } else if (!prevMsg || prevMsg.position !== currentMsg.position) {
-        ret = "start";
+        if (
+          prevMsg?.owner !== currentMsg?.owner &&
+          nextMsg?.owner !== currentMsg?.owner
+        ) {
+          ret = "single";
+        } else if (nextMsg?.owner !== currentMsg?.owner) {
+          ret = "end";
+        } else if (prevMsg?.owner !== currentMsg?.owner) {
+          ret = "start";
+        } else {
+          ret = "middle";
+        }
       } else {
-        ret = "middle";
+        if (
+          (!prevMsg || prevMsg.position !== currentMsg.position) &&
+          (!nextMsg || nextMsg.position !== currentMsg.position)
+        ) {
+          ret = "single";
+        } else if (!nextMsg || nextMsg.position !== currentMsg.position) {
+          ret = "end";
+        } else if (!prevMsg || prevMsg.position !== currentMsg.position) {
+          ret = "start";
+        } else {
+          ret = "middle";
+        }
       }
 
       return ret;

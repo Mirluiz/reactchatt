@@ -5,6 +5,7 @@ import { MessageImageProps } from "../components";
 export type MessageCoreProps = {
   id: string;
   title: string;
+  avatar?: string;
   position: "left" | "right";
   status: MessageStatus;
   pending?: boolean;
@@ -13,6 +14,7 @@ export type MessageCoreProps = {
   dateFormat?: string;
   type: "text" | "file" | "img" | string; // string is stand for "any"
   repliedMessage?: MessageProps;
+  owner: string;
 };
 
 export enum MessageStatus {

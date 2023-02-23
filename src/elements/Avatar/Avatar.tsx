@@ -12,18 +12,10 @@ const Avatar: FC<{
       style={{
         backgroundColor: img ? "" : "#bdbdbd",
       }}
-      className={`rc-avatar  ${variant ?? "square"}`}
+      className={`rc-avatar  ${variant ?? "rounded"}`}
     >
       {img && <img height="100%" width="100%" src={img} />}
-      {!img && (
-        <div
-          style={{
-            marginTop: 3,
-          }}
-        >
-          {name ?? "U"}
-        </div>
-      )}
+      {!img && <div>{name?.charAt(0) ?? "U"}</div>}
     </div>
   );
 };

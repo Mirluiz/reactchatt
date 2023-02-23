@@ -9,9 +9,18 @@ const Message: FC<
     order: "start" | "end" | "middle" | "single";
   }
 > = (props) => {
-  const { images, status, position, date, order, id } = props;
+  const {
+    images,
+    status,
+    position,
+    date,
+    order,
+    id,
+    title,
+    avatar: userAvatar,
+  } = props;
   const theme = useTheme();
-  const { icon, onClick } = useChat();
+  const { avatar, onClick } = useChat();
 
   const tail = order === "end" || order === "single";
 
@@ -23,7 +32,7 @@ const Message: FC<
         alignItems: "flex-end",
       }}
     >
-      {icon && (
+      {avatar && (
         <>
           {position === "left" && !tail && (
             <div
@@ -33,7 +42,9 @@ const Message: FC<
               }}
             />
           )}
-          {position === "left" && tail && <Avatar />}
+          {position === "left" && tail && (
+            <Avatar img={userAvatar} name={title} />
+          )}
         </>
       )}
       <div
