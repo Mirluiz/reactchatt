@@ -70,14 +70,14 @@ interface MessageTextProps {
   owner: string;
 }
 ```
+<img src='https://github.com/Mirluiz/reactchatt/blob/master/text.png'/>
+
 3. MessageFileProps
 ```typescript
 interface MessageFileProps {
-  id: string;
-  type: "img" | "doc";
-  url: string;
-  title: string;
-  secondary?: string;
+  caption?: string;
+  needTitle?: boolean;
+  files: Array<File>;
   
   id: string;
   title: string;
@@ -92,15 +92,22 @@ interface MessageFileProps {
   repliedMessage?: MessageProps;
   owner: string;
 }
+
+export interface File {
+  id: string;
+  type: "img" | "doc";
+  title: string;
+  url: string;
+  secondary?: string;
+}
 ```
+<img src='https://github.com/Mirluiz/reactchatt/blob/master/docs.png'/>
+
 4. MessageImageProps
 ```typescript
 interface MessageImageProps {
-  id: string;
-  title: string;
-  url: string;
-  width: number;
-  height: number;
+  caption?: string;
+  images: Array<Image>;
   
   id: string;
   title: string;
@@ -115,7 +122,17 @@ interface MessageImageProps {
   repliedMessage?: MessageProps;
   owner: string;
 }
+
+export interface Image {
+  id: string;
+  title: string;
+  url: string;
+  width: number;
+  height: number;
+}
 ```
+<img src='https://github.com/Mirluiz/reactchatt/blob/master/images.png'/>
+
 
 |      Types       |                      Description                      |
 |:----------------:|:-----------------------------------------------------:| 
