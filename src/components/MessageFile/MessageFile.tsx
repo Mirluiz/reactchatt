@@ -22,13 +22,19 @@ const MessageFile: FC<
     title,
     avatar: userAvatar,
   } = props;
-  const { avatar, onClick, onLongClick } = useChat();
+  const { avatar, onClick, onLongTouch } = useChat();
   const theme = useTheme();
 
   const tail = order === "end" || order === "single";
 
   return (
-    <div className="rc-message-file_container">
+    <div
+      className="rc-message-file_container"
+      onClick={(e) => {
+        onClick(id);
+        e.stopPropagation();
+      }}
+    >
       {avatar && (
         <>
           {position === "left" && !tail && (
@@ -52,10 +58,6 @@ const MessageFile: FC<
       >
         <div
           className="rc-message-file_body"
-          onClick={(e) => {
-            onClick(id);
-            e.stopPropagation();
-          }}
           style={{
             flexDirection: position === "left" ? "row-reverse" : "initial",
             backgroundColor:
@@ -151,8 +153,9 @@ const Files: FC<{ files: Array<File> | undefined; message: string }> = (
 
         return (
           <div
-            onClick={() => {
+            onClick={(e) => {
               onItemClick(message, file.id);
+              e.stopPropagation();
             }}
             style={{
               display: "flex",

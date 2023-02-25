@@ -11,10 +11,11 @@ export interface MessengerBodyProps {
   loading: boolean;
   date: boolean;
   dateFormat: string;
+  onMessageSystemDateClick?: (date: Date) => void;
   onMessageClick?: (id: string) => void;
   onMessageDblClick?: (id: string) => void;
-  onMessageItemClick?: (message: string, id: string) => void;
-  onMessageLongClick?: (id: string) => void;
+  onMessageItemClick?: (message: string, id: string | false) => void;
+  onMessageLongTouch?: (id: string) => void;
   onPulled?: (id: string) => void;
   onMessageContext?: (id: string) => void;
   onEdgeReach?: () => void;

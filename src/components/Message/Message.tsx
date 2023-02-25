@@ -21,13 +21,19 @@ const Message: FC<
     text,
     avatar: userAvatar,
   } = props;
-  const { avatar, onClick, onLongClick } = useChat();
+  const { avatar, onClick, onLongTouch } = useChat();
   const theme = useTheme();
 
   const tail = order === "end" || order === "single";
 
   return (
-    <div className="rc-message-text_container">
+    <div
+      className="rc-message-text_container"
+      onClick={(e) => {
+        onClick(id);
+        e.stopPropagation();
+      }}
+    >
       {avatar && (
         <>
           {position === "left" && !tail && (
@@ -51,10 +57,6 @@ const Message: FC<
       >
         <div
           className="rc-message-text_body"
-          onClick={(e) => {
-            onClick(id);
-            e.stopPropagation();
-          }}
           style={{
             flexDirection: position === "left" ? "row-reverse" : "initial",
             backgroundColor:

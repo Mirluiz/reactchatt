@@ -1,5 +1,5 @@
 export { default } from "./MessageImage";
 export * from "./MessageImage";
 
-export { style as MessageImage } from "./MessageImageStyle";
+export { style as MessageImageStyle } from "./MessageImageStyle";
 export type { Image, MessageImageProps } from "./MessageImageType";

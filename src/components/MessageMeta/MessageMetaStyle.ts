@@ -33,7 +33,7 @@ export const style = `
 	padding-left: 5px;
 	padding-right: 5px;
 	margin-top: -1.75rem;
-	background-color: var(--rc-palette-chip);
+	background-color: rgba(0, 0, 0, 0.4);
 	color: var(--rc-palette-paper);
 	top: 0.35rem;
 }

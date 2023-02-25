@@ -5,6 +5,7 @@ export const style = `
 	overflow-y: scroll;
 }
 
+
 .rc-messages-scroll .rc-container {
 	min-height: 100%;
 	display: flex;

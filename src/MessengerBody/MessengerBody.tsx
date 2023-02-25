@@ -198,18 +198,16 @@ const MessengerBody: FC<
   };
 
   const sameDate = useCallback(
-    (messages: Array<MessageProps>, index: number): boolean => {
+    (prevMsg?: MessageProps, currentMsg?: MessageProps): boolean => {
       let ret: boolean = false;
-      let prevMsg: MessageProps | undefined = messages[index - 1],
-        currentMsg: MessageProps | undefined = messages[index];
 
       if (!prevMsg) {
         // single message - start of conversation
         ret = true;
       } else if (
-        prevMsg.date.getFullYear() === currentMsg.date.getFullYear() &&
-        prevMsg.date.getMonth() === currentMsg.date.getMonth() &&
-        prevMsg.date.getDate() === currentMsg.date.getDate()
+        prevMsg.date.getFullYear() === currentMsg?.date.getFullYear() &&
+        prevMsg.date.getMonth() === currentMsg?.date.getMonth() &&
+        prevMsg.date.getDate() === currentMsg?.date.getDate()
       ) {
         ret = true;
       }
@@ -229,34 +227,38 @@ const MessengerBody: FC<
         currentMsg: MessageProps = messages[index],
         nextMsg: MessageProps | undefined = messages[index + 1];
 
-      if (
-        prevMsg?.owner !== currentMsg?.owner ||
-        currentMsg?.owner !== nextMsg?.owner
-      ) {
-        if (
-          prevMsg?.owner !== currentMsg?.owner &&
-          nextMsg?.owner !== currentMsg?.owner
-        ) {
-          ret = "single";
-        } else if (nextMsg?.owner !== currentMsg?.owner) {
-          ret = "end";
-        } else if (prevMsg?.owner !== currentMsg?.owner) {
-          ret = "start";
-        } else {
-          ret = "middle";
-        }
+      if (!sameDate(currentMsg, nextMsg)) {
+        ret = "end";
       } else {
         if (
-          (!prevMsg || prevMsg.position !== currentMsg.position) &&
-          (!nextMsg || nextMsg.position !== currentMsg.position)
+          prevMsg?.owner !== currentMsg?.owner ||
+          currentMsg?.owner !== nextMsg?.owner
         ) {
-          ret = "single";
-        } else if (!nextMsg || nextMsg.position !== currentMsg.position) {
-          ret = "end";
-        } else if (!prevMsg || prevMsg.position !== currentMsg.position) {
-          ret = "start";
+          if (
+            prevMsg?.owner !== currentMsg?.owner &&
+            nextMsg?.owner !== currentMsg?.owner
+          ) {
+            ret = "single";
+          } else if (nextMsg?.owner !== currentMsg?.owner) {
+            ret = "end";
+          } else if (prevMsg?.owner !== currentMsg?.owner) {
+            ret = "start";
+          } else {
+            ret = "middle";
+          }
         } else {
-          ret = "middle";
+          if (
+            (!prevMsg || prevMsg.position !== currentMsg.position) &&
+            (!nextMsg || nextMsg.position !== currentMsg.position)
+          ) {
+            ret = "single";
+          } else if (!nextMsg || nextMsg.position !== currentMsg.position) {
+            ret = "end";
+          } else if (!prevMsg || prevMsg.position !== currentMsg.position) {
+            ret = "start";
+          } else {
+            ret = "middle";
+          }
         }
       }
 
@@ -327,12 +329,16 @@ const MessengerBody: FC<
             {renderMessages.current.map((message, index) => {
               return (
                 <>
-                  {!sameDate(renderMessages.current, index) && props.date && (
-                    <MessageSystemDate
-                      date={message.date}
-                      format={props.dateFormat}
-                    />
-                  )}
+                  {!sameDate(
+                    renderMessages.current[index - 1],
+                    renderMessages.current[index]
+                  ) &&
+                    props.date && (
+                      <MessageSystemDate
+                        date={message.date}
+                        format={props.dateFormat}
+                      />
+                    )}
                   <Layer
                     id={message.id}
                     position={message.position}

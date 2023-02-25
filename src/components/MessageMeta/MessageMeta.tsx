@@ -46,7 +46,7 @@ const MessageMeta: FC<{
                 ? position === "left"
                   ? theme.palette.onLeftSecondary
                   : theme.palette.onRightSecondary
-                : theme.palette.onChip,
+                : "white",
             }}
           >
             {moment(date).format("hh:mm A")}

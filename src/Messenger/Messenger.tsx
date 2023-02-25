@@ -34,12 +34,15 @@ const Messenger: FC<
     props?.onMessageDblClick && props?.onMessageDblClick(id);
   }, []);
 
-  const onMessageItemClick = useCallback((message: string, id: string) => {
-    props?.onMessageItemClick && props?.onMessageItemClick(message, id);
-  }, []);
+  const onMessageItemClick = useCallback(
+    (message: string, id: string | false) => {
+      props?.onMessageItemClick && props?.onMessageItemClick(message, id);
+    },
+    []
+  );
 
   const onMessageLongClick = useCallback((id: string) => {
-    props?.onMessageLongClick && props?.onMessageLongClick(id);
+    props?.onMessageLongTouch && props?.onMessageLongTouch(id);
   }, []);
 
   const onPulled = useCallback((id: string) => {
@@ -113,11 +116,15 @@ const Messenger: FC<
     <ChatContext.Provider
       value={{
         avatar: props.avatar ?? true,
+        onMessageSystemDateClick: (date) => {
+          props.onMessageSystemDateClick &&
+            props.onMessageSystemDateClick(date);
+        },
         onClick: (id) => {
           props.onMessageClick && props.onMessageClick(id);
         },
-        onLongClick: (id) => {
-          props.onMessageLongClick && props.onMessageLongClick(id);
+        onLongTouch: (id) => {
+          props.onMessageLongTouch && props.onMessageLongTouch(id);
         },
         onDblClick: (id) => {
           props.onMessageDblClick && props.onMessageDblClick(id);
@@ -154,7 +161,7 @@ const Messenger: FC<
             onMessageClick={onMessageClick}
             onMessageDblClick={onMessageDblClick}
             onMessageItemClick={onMessageItemClick}
-            onMessageLongClick={onMessageLongClick}
+            onMessageLongTouch={onMessageLongClick}
             onPulled={onPulled}
             onMessageContext={onMessageContext}
             onEdgeReach={onEdgeReach}

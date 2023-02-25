@@ -130,8 +130,6 @@ export const setTheme = (theme?: ThemeOptions): ThemeProps => {
       onRightSecondary:
         theme?.palette?.onRightSecondary ??
         defaultThemeValues.palette.onRightSecondary,
-      chip: theme?.palette?.chip ?? defaultThemeValues.palette.chip,
-      onChip: theme?.palette?.onChip ?? defaultThemeValues.palette.onChip,
     },
     shape: {
       borderRadius:
@@ -176,8 +174,6 @@ const THEME_NAMES: {
     leftTitle: "--rc-palette-left-message-title",
     onLeft: "--rc-palette-on-left-message",
     onLeftSecondary: "--rc-palette-on-left-message-secondary",
-    chip: "--rc-palette-chip",
-    onChip: "--rc-palette-on-chip",
   },
   typography: {
     fontFamily: "--rc-typography-font-family",
