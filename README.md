@@ -134,12 +134,6 @@ export interface Image {
 <img src='https://github.com/Mirluiz/reactchatt/blob/master/images.png'/>
 
 
-|      Types       |                      Description                      |
-|:----------------:|:-----------------------------------------------------:| 
-|   MessageProps   | Common Message type (currenly - text, images, files.) |
-| MessageTextProps |                <code>let a = 10</code>                |  
-|   MessageProps   | Common Message type (currenly - text, images, files.) |  
-
 ### Custom renders
 
 |                    |     Description      |                     Type                     | 
