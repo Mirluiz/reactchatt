@@ -41,14 +41,87 @@ import { ReactChat } from "renchat";
 ### Events
 
 |                    |                      Description                      |                   Type                   |
-| :----------------: | :---------------------------------------------------: | :--------------------------------------: |
-|   onMessageClick   |                     Message click                     |          `(id: string) => void`          |
+|:------------------:| :---------------------------------------------------: | :--------------------------------------: |
+|      Message       |                     Message click                     |          `(id: string) => void`          |
 | onMessageDblClick  |                 Message double click                  |          `(id: string) => void`          |
 | onMessageItemClick | Message item click callback<br/> (e.g Multi messages) | `(message: string, id: string) => void;` |
 | onMessageLongClick |              Message long Touch (mobile)              |          `(id: string) => void`          |
 |      onPulled      |                Message Pulled (mobile)                |          `(id: string) => void`          |
 |  onMessageContext  |               On message context click                |          `(id: string) => void`          |
 |    onEdgeReach     |                Edge reach by scrolling                |               `() => void`               |
+
+### Message types
+1. MessageProps - common message type.
+2. MessageTextProps;
+```typescript
+interface MessageTextProps {
+  text: string;
+  id: string;
+  title: string;
+  avatar?: string;
+  position: "left" | "right";
+  status: MessageStatus;
+  pending?: boolean;
+  edited?: boolean;
+  date: Date;
+  dateFormat?: string;
+  type: "text";
+  repliedMessage?: MessageProps;
+  owner: string;
+}
+```
+3. MessageFileProps
+```typescript
+interface MessageFileProps {
+  id: string;
+  type: "img" | "doc";
+  url: string;
+  title: string;
+  secondary?: string;
+  
+  id: string;
+  title: string;
+  avatar?: string;
+  position: "left" | "right";
+  status: MessageStatus;
+  pending?: boolean;
+  edited?: boolean;
+  date: Date;
+  dateFormat?: string;
+  type: "file";
+  repliedMessage?: MessageProps;
+  owner: string;
+}
+```
+4. MessageImageProps
+```typescript
+interface MessageImageProps {
+  id: string;
+  title: string;
+  url: string;
+  width: number;
+  height: number;
+  
+  id: string;
+  title: string;
+  avatar?: string;
+  position: "left" | "right";
+  status: MessageStatus;
+  pending?: boolean;
+  edited?: boolean;
+  date: Date;
+  dateFormat?: string;
+  type: "img";
+  repliedMessage?: MessageProps;
+  owner: string;
+}
+```
+
+|      Types       |                      Description                      |
+|:----------------:|:-----------------------------------------------------:| 
+|   MessageProps   | Common Message type (currenly - text, images, files.) |
+| MessageTextProps |                <code>let a = 10</code>                |  
+|   MessageProps   | Common Message type (currenly - text, images, files.) |  
 
 ### Custom renders
 
