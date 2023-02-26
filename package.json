@@ -1,6 +1,6 @@
 {
   "name": "reactchatt",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "types": "dist/type.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

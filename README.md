@@ -17,7 +17,7 @@ npm install reactchatt
 ## Usage
 
 ```ts
-import { ReactChat } from "renchat";
+import { ReactChat } from "reactchatt";
 
 <ReactChat messages={messages} />;
 ```
@@ -41,7 +41,7 @@ import { ReactChat } from "renchat";
 ### Events
 
 |                    |                      Description                      |                   Type                   |
-|:------------------:| :---------------------------------------------------: | :--------------------------------------: |
+| :----------------: | :---------------------------------------------------: | :--------------------------------------: |
 |      Message       |                     Message click                     |          `(id: string) => void`          |
 | onMessageDblClick  |                 Message double click                  |          `(id: string) => void`          |
 | onMessageItemClick | Message item click callback<br/> (e.g Multi messages) | `(message: string, id: string) => void;` |
@@ -51,96 +51,102 @@ import { ReactChat } from "renchat";
 |    onEdgeReach     |                Edge reach by scrolling                |               `() => void`               |
 
 ### Message types
+
 1. MessageProps - common message type.
 2. MessageTextProps;
+
 ```typescript
 interface MessageTextProps {
-  text: string;
-  id: string;
-  title: string;
-  avatar?: string;
-  position: "left" | "right";
-  status: MessageStatus;
-  pending?: boolean;
-  edited?: boolean;
-  date: Date;
-  dateFormat?: string;
-  type: "text";
-  repliedMessage?: MessageProps;
-  owner: string;
+	text: string;
+	id: string;
+	title: string;
+	avatar?: string;
+	position: "left" | "right";
+	status: MessageStatus;
+	pending?: boolean;
+	edited?: boolean;
+	date: Date;
+	dateFormat?: string;
+	type: "text";
+	repliedMessage?: MessageProps;
+	owner: string;
 }
 ```
+
 <img src='https://github.com/Mirluiz/reactchatt/blob/master/text.png'/>
 
 3. MessageFileProps
+
 ```typescript
 interface MessageFileProps {
-  caption?: string;
-  needTitle?: boolean;
-  files: Array<File>;
-  
-  id: string;
-  title: string;
-  avatar?: string;
-  position: "left" | "right";
-  status: MessageStatus;
-  pending?: boolean;
-  edited?: boolean;
-  date: Date;
-  dateFormat?: string;
-  type: "file";
-  repliedMessage?: MessageProps;
-  owner: string;
+	caption?: string;
+	needTitle?: boolean;
+	files: Array<File>;
+
+	id: string;
+	title: string;
+	avatar?: string;
+	position: "left" | "right";
+	status: MessageStatus;
+	pending?: boolean;
+	edited?: boolean;
+	date: Date;
+	dateFormat?: string;
+	type: "file";
+	repliedMessage?: MessageProps;
+	owner: string;
 }
 
 export interface File {
-  id: string;
-  type: "img" | "doc";
-  title: string;
-  url: string;
-  secondary?: string;
+	id: string;
+	type: "img" | "doc";
+	title: string;
+	url: string;
+	secondary?: string;
 }
 ```
+
 <img src='https://github.com/Mirluiz/reactchatt/blob/master/docs.png'/>
 
 4. MessageImageProps
+
 ```typescript
 interface MessageImageProps {
-  caption?: string;
-  images: Array<Image>;
-  
-  id: string;
-  title: string;
-  avatar?: string;
-  position: "left" | "right";
-  status: MessageStatus;
-  pending?: boolean;
-  edited?: boolean;
-  date: Date;
-  dateFormat?: string;
-  type: "img";
-  repliedMessage?: MessageProps;
-  owner: string;
+	caption?: string;
+	images: Array<Image>;
+
+	id: string;
+	title: string;
+	avatar?: string;
+	position: "left" | "right";
+	status: MessageStatus;
+	pending?: boolean;
+	edited?: boolean;
+	date: Date;
+	dateFormat?: string;
+	type: "img";
+	repliedMessage?: MessageProps;
+	owner: string;
 }
 
 export interface Image {
-  id: string;
-  title: string;
-  url: string;
-  width: number;
-  height: number;
+	id: string;
+	title: string;
+	url: string;
+	width: number;
+	height: number;
 }
 ```
-<img src='https://github.com/Mirluiz/reactchatt/blob/master/images.png'/>
 
+<img src='https://github.com/Mirluiz/reactchatt/blob/master/images.png'/>
 
 ### Custom renders
 
-|                    |     Description      |                     Type                     | 
-| :----------------: | :------------------: |:--------------------------------------------:| 
-| renderTextMessage  | Custom text message  | `(message: MessageTextProps, order: "start"  <br/>| "end" | "middle" | "single") => JSX.Element` |
-| renderImageMessage | Custom image message | `(message: MessageImageProps, order: "start" <br/>| "end" | "middle" | "single") => JSX.Element` |
-| renderFileMessage  | Custom file message  | `(message: MessageFileProps, order: "start"  <br/>| "end" | "middle" | "single") => JSX.Element` |
+|                    |     Description      |                        Type                        |
+| :----------------: | :------------------: | :------------------------------------------------: | ----- | -------- | ------------------------- |
+| renderTextMessage  | Custom text message  | `(message: MessageTextProps, order: "start" <br/>  | "end" | "middle" | "single") => JSX.Element` |
+| renderImageMessage | Custom image message | `(message: MessageImageProps, order: "start" <br/> | "end" | "middle" | "single") => JSX.Element` |
+| renderFileMessage  | Custom file message  | `(message: MessageFileProps, order: "start" <br/>  | "end" | "middle" | "single") => JSX.Element` |
 
 ### useChatApi
 
@@ -165,9 +171,8 @@ to discuss what you would like to change.
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
+## P.S.
 
-
-## P.S. 
 I am open for job offers :)
 {
 mail: zey.verdiyev@gmail.com,
