@@ -21,7 +21,7 @@ const Message: FC<
     text,
     avatar: userAvatar,
   } = props;
-  const { avatar, onClick, onLongTouch } = useChat();
+  const { avatar, onMessageClick, onMessageLongTouch } = useChat();
   const theme = useTheme();
 
   const tail = order === "end" || order === "single";
@@ -30,8 +30,10 @@ const Message: FC<
     <div
       className="rc-message-text_container"
       onClick={(e) => {
-        onClick(id);
-        e.stopPropagation();
+        if (onMessageClick) {
+          onMessageClick(id);
+          e.stopPropagation();
+        }
       }}
     >
       {avatar && (
@@ -95,7 +97,12 @@ const Message: FC<
               >
                 {text}
               </Typography>
-              <MessageMeta date={date} status={1} position={position} />
+              <MessageMeta
+                date={date}
+                status={1}
+                position={position}
+                style={"text"}
+              />
             </div>
           </div>
         </div>

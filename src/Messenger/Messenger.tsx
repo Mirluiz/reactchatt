@@ -115,29 +115,10 @@ const Messenger: FC<
   return (
     <ChatContext.Provider
       value={{
-        avatar: props.avatar ?? true,
-        onMessageSystemDateClick: (date) => {
-          props.onMessageSystemDateClick &&
-            props.onMessageSystemDateClick(date);
-        },
-        onClick: (id) => {
-          props.onMessageClick && props.onMessageClick(id);
-        },
-        onLongTouch: (id) => {
-          props.onMessageLongTouch && props.onMessageLongTouch(id);
-        },
-        onDblClick: (id) => {
-          props.onMessageDblClick && props.onMessageDblClick(id);
-        },
-        typing: props.typing ?? false,
-        onPulled: (id) => {
-          props.onPulled && props.onPulled(id);
-        },
-        onItemClick: (message, id) => {
-          props.onMessageItemClick && props.onMessageItemClick(message, id);
-        },
-        onEdgeReach: () => {
-          props.onEdgeReach && props.onEdgeReach();
+        props: {
+          ...props,
+          avatar: props.avatar ?? true,
+          title: props.title ?? true,
         },
       }}
     >

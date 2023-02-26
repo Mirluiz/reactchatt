@@ -2,28 +2,19 @@ import React, { FC, useEffect } from "react";
 import { MessageStatus } from "../../@types/message";
 import { useTheme } from "../../hooks";
 import moment from "moment";
+import { Typography } from "../../elements";
 
 const MessageMeta: FC<{
   position: "left" | "right";
   date: Date;
   status: MessageStatus | undefined;
-  chip?: boolean;
-  shift?: boolean;
+  style: "image" | "text" | "file";
 }> = (props) => {
-  const { date, status, chip, shift, position } = props;
+  const { date, status, style, position } = props;
   const theme = useTheme();
 
-  const shiftStyle = {
-    marginTop: shift ?? "-1rem",
-  };
-
   return (
-    <div
-      className={chip ? "rc-chip" : "rc-meta"}
-      style={{
-        marginTop: shift ? "-1rem" : "",
-      }}
-    >
+    <div className={`rc-meta-${style}`}>
       <div
         style={{
           display: "flex",
@@ -39,17 +30,19 @@ const MessageMeta: FC<{
           <span
             style={{
               lineHeight: 1,
-              paddingTop: theme.space(0.1),
-              paddingBottom: theme.space(0.1),
-              fontSize: ".6rem",
-              color: !chip
-                ? position === "left"
-                  ? theme.palette.onLeftSecondary
-                  : theme.palette.onRightSecondary
-                : "white",
+              // fontSize: ".6rem",
+              display: "flex",
+              color:
+                style !== "image"
+                  ? position === "left"
+                    ? theme.palette.onLeftSecondary
+                    : theme.palette.onRightSecondary
+                  : "white",
             }}
           >
-            {moment(date).format("hh:mm A")}
+            <Typography size={"es"}>
+              {moment(date).format("hh:mm A")}
+            </Typography>
           </span>
         </div>
         {position === "right" && (
@@ -67,11 +60,11 @@ const MessageMeta: FC<{
                 aria-hidden="true"
                 viewBox="0 0 24 24"
                 style={{
-                  fill: chip
-                    ? theme.palette.paper
-                    : theme.palette.onRightSecondary,
+                  fill:
+                    style === "image"
+                      ? theme.palette.paper
+                      : theme.palette.onRightSecondary,
                 }}
-                data-testid="CheckOutlinedIcon"
               >
                 <path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"></path>
               </svg>
@@ -82,9 +75,10 @@ const MessageMeta: FC<{
                 aria-hidden="true"
                 viewBox="0 0 24 24"
                 style={{
-                  fill: chip
-                    ? theme.palette.paper
-                    : theme.palette.onRightSecondary,
+                  fill:
+                    style === "image"
+                      ? theme.palette.paper
+                      : theme.palette.onRightSecondary,
                 }}
                 data-testid="DoneAllOutlinedIcon"
               >

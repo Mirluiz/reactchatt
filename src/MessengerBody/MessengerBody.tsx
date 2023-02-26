@@ -16,7 +16,7 @@ import { animate, raf } from "../utils/animation";
 import { Loader } from "../elements";
 import { MessengerBodyProps } from "./MessengerBodyType";
 import { MessageProps } from "../@types/message";
-import { MessageSystemDate } from "../components";
+import { MessageSystemDate, MessageWrapper } from "../components";
 
 const ANIMATION_DURATION = 120;
 
@@ -321,7 +321,7 @@ const MessengerBody: FC<
               current.scrollHeight > current.clientHeight
             ) {
               endReachedStatus.current = true;
-              onEdgeReach();
+              onEdgeReach && onEdgeReach();
             }
           }}
         >
@@ -379,20 +379,29 @@ const Layer: FC<{
   children?: ReactElement;
 }> = (props) => {
   const { id, position, children } = props;
-  const { onDblClick } = useChat();
+  const { onMessageDblClick, onMessageContext } = useChat();
 
   return (
     <div
       id={`message-${id}`}
       className="rc-layer"
-      onDoubleClick={() => {
-        onDblClick(id);
+      onDoubleClick={(e) => {
+        if (onMessageDblClick) {
+          onMessageDblClick(id);
+          e.preventDefault();
+        }
+      }}
+      onContextMenu={(e) => {
+        if (onMessageContext) {
+          onMessageContext(id);
+          e.preventDefault();
+        }
       }}
       style={{
         justifyContent: position === "left" ? "flex-start" : "flex-end",
       }}
     >
-      {children}
+      <MessageWrapper messageId={id}>{children}</MessageWrapper>
     </div>
   );
 };

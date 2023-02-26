@@ -17,7 +17,7 @@ export interface MessengerBodyProps {
   onMessageItemClick?: (message: string, id: string | false) => void;
   onMessageLongTouch?: (id: string) => void;
   onPulled?: (id: string) => void;
-  onMessageContext?: (id: string) => void;
+  onMessageContext?: (id: string, messageItself?: boolean) => void;
   onEdgeReach?: () => void;
   renderTextMessage: (
     message: MessageTextProps,

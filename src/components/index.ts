@@ -15,3 +15,6 @@ export * from "./MessageReply";
 
 export { default as MessageSystemDate } from "./MessageSystemDate";
 export * from "./MessageSystemDate";
+
+export { default as MessageWrapper } from "./MessageWrapper";
+export * from "./MessageWrapper";

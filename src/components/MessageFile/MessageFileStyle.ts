@@ -2,6 +2,7 @@ export const style = `
 .reactchat .rc-message-file_container {
 	display: flex;
 	align-items: flex-end;
+	
 }
 
 .reactchat .rc-message-file {
@@ -15,6 +16,7 @@ export const style = `
 	padding: 0.4rem;
 	display: flex;
 	background-color: var(--rc-palette-right-message);
+	min-width: 140px;
 }
 
 .reactchat .rc-message-file-tail {

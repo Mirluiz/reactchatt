@@ -29,7 +29,7 @@ const Message: FC<
     avatar: userAvatar,
   } = props;
   const theme = useTheme();
-  const { avatar, onItemClick } = useChat();
+  const { avatar, onMessageItemClick } = useChat();
 
   const tail = order === "end" || order === "single";
   const singleImage = images?.length === 1 && images[0];
@@ -79,7 +79,7 @@ const Message: FC<
           <MessageMeta
             date={date}
             status={status}
-            chip={true}
+            style={"image"}
             position={position}
           />
         </div>
@@ -92,7 +92,7 @@ const Images: FC<{ messageId: string; images: Array<Image> | undefined }> = (
   props
 ) => {
   const { messageId, images } = props;
-  const { onItemClick } = useChat();
+  const { onMessageItemClick } = useChat();
 
   const height = useRef(300);
   const singleImage = images?.length === 1 && images[0];
@@ -177,11 +177,13 @@ const Images: FC<{ messageId: string; images: Array<Image> | undefined }> = (
                   >
                     <div
                       onClick={(e) => {
-                        onItemClick(
-                          messageId,
-                          index === length - 1 && needGroup ? false : img.id
-                        );
-                        e.stopPropagation();
+                        if (onMessageItemClick) {
+                          onMessageItemClick(
+                            messageId,
+                            index === length - 1 && needGroup ? false : img.id
+                          );
+                          e.stopPropagation();
+                        }
                       }}
                       style={{
                         width: `${getWidth()}px`,
@@ -194,8 +196,6 @@ const Images: FC<{ messageId: string; images: Array<Image> | undefined }> = (
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center center",
                         backgroundSize: "cover",
-
-                        // -webkit-filter: blur(8px);
                       }}
                     >
                       {index === length - 1 && needGroup && (
@@ -210,7 +210,7 @@ const Images: FC<{ messageId: string; images: Array<Image> | undefined }> = (
                           }}
                         >
                           <Typography color={"white"} size={"l"}>
-                            {images.length}
+                            +{images.length - 3}
                           </Typography>
                         </div>
                       )}

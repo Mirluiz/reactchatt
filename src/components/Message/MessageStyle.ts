@@ -2,7 +2,6 @@ export const style = `
 .reactchat .rc-message-text_container {
 	display: flex;
 	align-items: flex-end;
-	max-width: 80%;
 }
 
 .reactchat .rc-message-text {
