@@ -18,21 +18,14 @@ const Message: FC<
     order: "start" | "end" | "middle" | "single";
   }
 > = (props) => {
-  const {
-    images,
-    status,
-    position,
-    date,
-    order,
-    id,
-    title,
-    avatar: userAvatar,
-  } = props;
+  const { images, status, date, order, id, owner } = props;
   const theme = useTheme();
-  const { avatar, onMessageItemClick } = useChat();
+  const { props: globalProps, getPosition } = useChat();
+  const { avatar, onMessageItemClick, me } = globalProps;
 
   const tail = order === "end" || order === "single";
   const singleImage = images?.length === 1 && images[0];
+  const position = getPosition(props);
 
   return (
     <div
@@ -53,7 +46,7 @@ const Message: FC<
             />
           )}
           {position === "left" && tail && (
-            <Avatar img={userAvatar} name={title} />
+            <Avatar img={owner.avatar} name={owner.name} />
           )}
         </>
       )}
@@ -92,7 +85,7 @@ const Images: FC<{ messageId: string; images: Array<Image> | undefined }> = (
   props
 ) => {
   const { messageId, images } = props;
-  const { onMessageItemClick } = useChat();
+  const { onMessageItemClick } = useChat().props;
 
   const height = useRef(300);
   const singleImage = images?.length === 1 && images[0];

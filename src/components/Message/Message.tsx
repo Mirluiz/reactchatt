@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useMemo } from "react";
 import { MessageMeta } from "../index";
 import { useChat, useTheme } from "../../hooks";
 import MessageReply from "../MessageReply";
@@ -11,20 +11,16 @@ const Message: FC<
     order: "start" | "end" | "middle" | "single";
   }
 > = (props) => {
-  const {
-    order,
-    id,
-    position,
-    date,
-    title,
-    repliedMessage,
-    text,
-    avatar: userAvatar,
-  } = props;
-  const { avatar, onMessageClick, onMessageLongTouch } = useChat();
   const theme = useTheme();
-
-  const tail = order === "end" || order === "single";
+  const { order, id, date, repliedMessage, text, owner } = props;
+  const { props: globalProps, getPosition } = useChat();
+  const { avatar, onMessageClick, onMessageLongTouch, title } = globalProps;
+  const tail = useMemo(() => {
+    return order === "end" || order === "single";
+  }, [order]);
+  const position = useMemo(() => {
+    return getPosition(props);
+  }, [props]);
 
   return (
     <div
@@ -47,7 +43,7 @@ const Message: FC<
             />
           )}
           {position === "left" && tail && (
-            <Avatar img={userAvatar} name={title} />
+            <Avatar img={owner.avatar} name={owner.name} />
           )}
         </>
       )}
@@ -79,13 +75,14 @@ const Message: FC<
             >
               <div>
                 <div
-                  color={
-                    position === "left"
-                      ? theme.palette.leftTitle
-                      : theme.palette.rightTitle
-                  }
+                  style={{
+                    color:
+                      position === "left"
+                        ? theme.palette.leftTitle
+                        : theme.palette.rightTitle,
+                  }}
                 >
-                  {position === "left" ?? title}
+                  {position === "left" && title ? owner.name : ""}
                 </div>
               </div>
               <Typography

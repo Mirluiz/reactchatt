@@ -8,6 +8,7 @@ export const style = `
 	justify-content: center;
 	align-items: center;
 	color: white;
+
 }
 
 .rc-avatar.square {

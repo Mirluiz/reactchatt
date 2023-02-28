@@ -9,7 +9,7 @@ import React, {
   useState,
 } from "react";
 import { isText, isImage, isFile } from "../utils/guards";
-import { useChat } from "../hooks/useChat";
+import { useChat } from "../hooks";
 import { useTheme } from "../hooks/useTheme";
 import { scheduler } from "../utils/scheduler";
 import { animate, raf } from "../utils/animation";
@@ -33,7 +33,8 @@ const MessengerBody: FC<
   } = props;
 
   const theme = useTheme();
-  const { onEdgeReach } = useChat();
+  const { props: globalProps, getPosition } = useChat();
+  const { onEdgeReach, me } = globalProps;
 
   const endReachedStatus = useRef<boolean>(false);
 
@@ -231,30 +232,37 @@ const MessengerBody: FC<
         ret = "end";
       } else {
         if (
-          prevMsg?.owner !== currentMsg?.owner ||
-          currentMsg?.owner !== nextMsg?.owner
+          prevMsg?.owner.id !== currentMsg?.owner.id ||
+          currentMsg?.owner.id !== nextMsg?.owner.id
         ) {
           if (
-            prevMsg?.owner !== currentMsg?.owner &&
-            nextMsg?.owner !== currentMsg?.owner
+            prevMsg?.owner.id !== currentMsg?.owner.id &&
+            nextMsg?.owner.id !== currentMsg?.owner.id
           ) {
             ret = "single";
-          } else if (nextMsg?.owner !== currentMsg?.owner) {
+          } else if (nextMsg?.owner.id !== currentMsg?.owner.id) {
             ret = "end";
-          } else if (prevMsg?.owner !== currentMsg?.owner) {
+          } else if (prevMsg?.owner.id !== currentMsg?.owner.id) {
             ret = "start";
           } else {
             ret = "middle";
           }
         } else {
           if (
-            (!prevMsg || prevMsg.position !== currentMsg.position) &&
-            (!nextMsg || nextMsg.position !== currentMsg.position)
+            !prevMsg ||
+            (getPosition(prevMsg) !== getPosition(currentMsg) &&
+              (!nextMsg || getPosition(nextMsg) !== getPosition(currentMsg)))
           ) {
             ret = "single";
-          } else if (!nextMsg || nextMsg.position !== currentMsg.position) {
+          } else if (
+            !nextMsg ||
+            getPosition(nextMsg) !== getPosition(currentMsg)
+          ) {
             ret = "end";
-          } else if (!prevMsg || prevMsg.position !== currentMsg.position) {
+          } else if (
+            !prevMsg ||
+            getPosition(prevMsg) !== getPosition(currentMsg)
+          ) {
             ret = "start";
           } else {
             ret = "middle";
@@ -341,7 +349,7 @@ const MessengerBody: FC<
                     )}
                   <Layer
                     id={message.id}
-                    position={message.position}
+                    position={getPosition(message)}
                     key={message.id}
                   >
                     {isText(message) ? (
@@ -379,7 +387,7 @@ const Layer: FC<{
   children?: ReactElement;
 }> = (props) => {
   const { id, position, children } = props;
-  const { onMessageDblClick, onMessageContext } = useChat();
+  const { onMessageDblClick, onMessageContext } = useChat().props;
 
   return (
     <div

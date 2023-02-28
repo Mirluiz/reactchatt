@@ -14,7 +14,16 @@ const Avatar: FC<{
       }}
       className={`rc-avatar  ${variant ?? "rounded"}`}
     >
-      {img && <img height="100%" width="100%" src={img} />}
+      {img && (
+        <img
+          height="100%"
+          width="100%"
+          style={{
+            objectFit: "cover",
+          }}
+          src={img}
+        />
+      )}
       {!img && <div>{name?.charAt(0) ?? "U"}</div>}
     </div>
   );

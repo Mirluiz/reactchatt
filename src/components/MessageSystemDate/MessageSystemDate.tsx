@@ -9,7 +9,7 @@ type Props = {
 };
 
 const Message: FC<Props> = ({ date, format }) => {
-  const { onMessageSystemDateClick } = useChat();
+  const { onMessageSystemDateClick } = useChat().props;
 
   return (
     <div

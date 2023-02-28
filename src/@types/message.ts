@@ -2,11 +2,14 @@ import { MessageTextProps } from "../components";
 import { MessageFileProps } from "../components";
 import { MessageImageProps } from "../components";
 
+export type Owner = {
+  id: string;
+  name: string;
+  avatar: string;
+};
+
 export type MessageCoreProps = {
   id: string;
-  title: string;
-  avatar?: string;
-  position: "left" | "right";
   status: MessageStatus;
   pending?: boolean;
   edited?: boolean;
@@ -14,7 +17,8 @@ export type MessageCoreProps = {
   dateFormat?: string;
   type: "text" | "file" | "img" | string; // string is stand for "any"
   repliedMessage?: MessageProps;
-  owner: string;
+  owner: Owner;
+  // getPosition: () => "right" | "left";
 };
 
 export enum MessageStatus {

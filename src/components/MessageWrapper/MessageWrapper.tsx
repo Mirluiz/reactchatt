@@ -5,7 +5,7 @@ const MessageWrapper: FC<{
   messageId: string;
   children: React.ReactNode;
 }> = ({ messageId, children }) => {
-  const { onMessageContext } = useChat();
+  const { onMessageContext } = useChat().props;
 
   return (
     <div

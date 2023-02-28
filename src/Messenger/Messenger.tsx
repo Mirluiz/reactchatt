@@ -115,6 +115,9 @@ const Messenger: FC<
   return (
     <ChatContext.Provider
       value={{
+        getPosition: (m) => {
+          return m.owner.id === props.me ? "right" : "left";
+        },
         props: {
           ...props,
           avatar: props.avatar ?? true,

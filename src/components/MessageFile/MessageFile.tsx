@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import { useChat, useTheme } from "../../hooks";
 import { getFileExtIcon } from "../../utils/helper";
 import { borderByOrder } from "../../utils/theme";
@@ -6,28 +6,24 @@ import MessageMeta from "../MessageMeta";
 import MessageReply from "../MessageReply";
 import { MessageFileProps, File } from "./MessageFileType";
 import { Avatar, Typography } from "../../elements";
+import message from "../Message";
 
 const MessageFile: FC<
   MessageFileProps & {
     order: "start" | "end" | "middle" | "single";
   }
 > = (props) => {
-  const {
-    files,
-    order,
-    id,
-    date,
-    position,
-    repliedMessage,
-    title,
-    avatar: userAvatar,
-    caption,
-    status,
-  } = props;
-  const { avatar, onMessageClick, onMessageLongTouch } = useChat();
+  const { files, order, id, date, repliedMessage, caption, status, owner } =
+    props;
+  const { getPosition, props: globalProps } = useChat();
+  const { avatar, onMessageClick, onMessageLongTouch, title } = globalProps;
   const theme = useTheme();
-
-  const tail = order === "end" || order === "single";
+  const tail = useMemo(() => {
+    return order === "end" || order === "single";
+  }, [order]);
+  const position = useMemo(() => {
+    return getPosition(props);
+  }, [props]);
 
   return (
     <div
@@ -50,7 +46,7 @@ const MessageFile: FC<
             />
           )}
           {position === "left" && tail && (
-            <Avatar img={userAvatar} name={title} />
+            <Avatar img={owner.avatar} name={owner.name} />
           )}
         </>
       )}
@@ -102,6 +98,19 @@ const MessageFile: FC<
               />
             </div>
           )}
+          <div>
+            <div
+              style={{
+                marginBottom: "2px",
+                color:
+                  position === "left"
+                    ? theme.palette.leftTitle
+                    : theme.palette.rightTitle,
+              }}
+            >
+              {position === "left" && title ? owner.name : ""}
+            </div>
+          </div>
         </div>
         {tail && (
           <div
@@ -151,7 +160,7 @@ const Files: FC<{
 }> = (props) => {
   const { files, message, position } = props;
   const theme = useTheme();
-  const { onMessageItemClick } = useChat();
+  const { onMessageItemClick } = useChat().props;
 
   return (
     <div
@@ -177,7 +186,7 @@ const _File: FC<{
 }> = (props) => {
   const { file, message, position } = props;
   const theme = useTheme();
-  const { onMessageItemClick } = useChat();
+  const { onMessageItemClick } = useChat().props;
 
   return (
     <div

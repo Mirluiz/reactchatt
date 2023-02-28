@@ -10,6 +10,5 @@ export interface File {
 
 export interface MessageFileProps extends MessageCoreProps {
   caption?: string;
-  needTitle?: boolean;
   files: Array<File>;
 }

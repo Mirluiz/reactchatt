@@ -10,5 +10,6 @@ export interface PartialMessengerProps
 export interface MessengerProps
   extends MessengerBodyProps,
     MessengerComposerProps {
+  me: string;
   messages: Array<MessageProps>;
 }
