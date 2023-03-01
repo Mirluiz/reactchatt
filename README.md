@@ -12,7 +12,7 @@ npm install reactchatt
 
 ## Demo
 
-[Playground](https://reactchatt.com)
+[Playground](http://reactchatt.com)
 
 ## Usage
 
