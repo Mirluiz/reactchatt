@@ -29,6 +29,9 @@ export type PaletteProps = {
   onLeftSecondary: string;
   background: string;
   paper: string;
+  onPaper: string;
+  onPaperSecondary: string;
+  accent: string;
 };
 
 export type TypographyProps = {

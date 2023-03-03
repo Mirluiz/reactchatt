@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { PartialMessengerProps } from "../Messenger";
 import { MessageProps } from "../@types/message";
+import { ThemeOptions } from "../@types/theme";
 
 const useChat = () => {
   return useContext(ChatContext);

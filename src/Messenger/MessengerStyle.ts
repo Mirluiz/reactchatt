@@ -14,6 +14,6 @@ export const style = `
 }
 
 .reactchat * {
-	font-family: var(--rc-typography-fontFamily);
+	font-family: var(--rc-typography-font-family);
 }
 `;

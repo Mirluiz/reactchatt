@@ -43,6 +43,7 @@ export const style = `
 	justify-content: flex-start;
 	align-items: center;
 	position: relative;
+	background-color: var(--rc-palette-paper);
 }
 
 .reactchat .rc-textarea {
@@ -57,6 +58,8 @@ export const style = `
 	padding-top: var(--rc-sx-1);
 	padding-bottom: var(--rc-sx-1);
 	max-height: 200px;
+  background-color: var(--rc-palette-paper);
+  color: var(--rc-palette-on-paper);
 }
 .reactchat .rc-textarea_hidden {
 	visibility: hidden;

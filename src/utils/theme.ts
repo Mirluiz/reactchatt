@@ -20,10 +20,12 @@ import {
   TypographyStyle,
 } from "../elements";
 
-const defaultThemeValues = {
+export const defaultThemeValues: ThemeProps = {
   palette: {
     background: "#95c48a",
     paper: "#fff",
+    onPaper: "black",
+    onPaperSecondary: "rgba(112,117,121,0.8)",
     left: "#ffffff",
     leftTitle: "#e17076",
     onLeft: "#000000",
@@ -32,8 +34,7 @@ const defaultThemeValues = {
     rightTitle: "#6ec9cb",
     onRight: "#000000",
     onRightSecondary: "#4fae4e",
-    chip: "#b2b2b2",
-    onChip: "#fff",
+    accent: "#e17076",
   },
   shape: {
     borderRadius: 1,
@@ -53,6 +54,9 @@ const defaultThemeValues = {
       '"Segoe UI Symbol"',
     ].join(","),
     fontSize: "1.4rem",
+  },
+  space: (n) => {
+    return `${n}px`;
   },
 };
 
@@ -114,11 +118,16 @@ export const setTheme = (theme?: ThemeOptions): ThemeProps => {
       background:
         theme?.palette?.background ?? defaultThemeValues.palette.background,
       paper: theme?.palette?.paper ?? defaultThemeValues.palette.paper,
+      onPaper: theme?.palette?.onPaper ?? defaultThemeValues.palette.onPaper,
+      onPaperSecondary:
+        theme?.palette?.onPaperSecondary ??
+        defaultThemeValues.palette.onPaperSecondary,
 
       left: theme?.palette?.left ?? defaultThemeValues.palette.left,
       leftTitle:
         theme?.palette?.leftTitle ?? defaultThemeValues.palette.leftTitle,
       onLeft: theme?.palette?.onLeft ?? defaultThemeValues.palette.onLeft,
+      accent: theme?.palette?.accent ?? defaultThemeValues.palette.accent,
 
       onLeftSecondary:
         theme?.palette?.onLeftSecondary ??
@@ -166,6 +175,8 @@ const THEME_NAMES: {
   palette: {
     background: "--rc-palette-background",
     paper: "--rc-palette-paper",
+    onPaper: "--rc-palette-on-paper",
+    onPaperSecondary: "--rc-palette-on-paper-secondary",
     right: "--rc-palette-right-message",
     rightTitle: "--rc-palette-right-message-title",
     onRight: "--rc-palette-on-right-message",
@@ -174,6 +185,7 @@ const THEME_NAMES: {
     leftTitle: "--rc-palette-left-message-title",
     onLeft: "--rc-palette-on-left-message",
     onLeftSecondary: "--rc-palette-on-left-message-secondary",
+    accent: "--rc-palette-accent",
   },
   typography: {
     fontFamily: "--rc-typography-font-family",
@@ -223,49 +235,53 @@ export const borderByOrder = (
     borderTopRightRadius: 0,
   };
 
+  let m = 12,
+    b = 15,
+    s = 8;
+
   if (position === "right") {
-    ret.borderTopLeftRadius = 10 * theme.shape.borderRadius;
-    ret.borderBottomLeftRadius = 10 * theme.shape.borderRadius;
+    ret.borderTopLeftRadius = m * theme.shape.borderRadius;
+    ret.borderBottomLeftRadius = m * theme.shape.borderRadius;
 
     switch (order) {
       case "single":
-        ret.borderTopRightRadius = 15 * theme.shape.borderRadius;
+        ret.borderTopRightRadius = b * theme.shape.borderRadius;
         ret.borderBottomRightRadius = 0;
         break;
       case "start":
-        ret.borderTopRightRadius = 15 * theme.shape.borderRadius;
-        ret.borderBottomRightRadius = 5 * theme.shape.borderRadius;
+        ret.borderTopRightRadius = b * theme.shape.borderRadius;
+        ret.borderBottomRightRadius = s * theme.shape.borderRadius;
         break;
       case "middle":
-        ret.borderTopRightRadius = 5 * theme.shape.borderRadius;
-        ret.borderBottomRightRadius = 5 * theme.shape.borderRadius;
+        ret.borderTopRightRadius = s * theme.shape.borderRadius;
+        ret.borderBottomRightRadius = s * theme.shape.borderRadius;
         break;
       case "end":
-        ret.borderTopRightRadius = 5 * theme.shape.borderRadius;
+        ret.borderTopRightRadius = s * theme.shape.borderRadius;
         ret.borderBottomRightRadius = 0;
         break;
     }
   }
 
   if (position === "left") {
-    ret.borderTopRightRadius = 10 * theme.shape.borderRadius;
-    ret.borderBottomRightRadius = 10 * theme.shape.borderRadius;
+    ret.borderTopRightRadius = m * theme.shape.borderRadius;
+    ret.borderBottomRightRadius = m * theme.shape.borderRadius;
 
     switch (order) {
       case "single":
-        ret.borderTopLeftRadius = 15 * theme.shape.borderRadius;
+        ret.borderTopLeftRadius = b * theme.shape.borderRadius;
         ret.borderBottomLeftRadius = 0;
         break;
       case "start":
-        ret.borderTopLeftRadius = 15 * theme.shape.borderRadius;
-        ret.borderBottomLeftRadius = 5 * theme.shape.borderRadius;
+        ret.borderTopLeftRadius = b * theme.shape.borderRadius;
+        ret.borderBottomLeftRadius = s * theme.shape.borderRadius;
         break;
       case "middle":
-        ret.borderTopLeftRadius = 5 * theme.shape.borderRadius;
-        ret.borderBottomLeftRadius = 5 * theme.shape.borderRadius;
+        ret.borderTopLeftRadius = s * theme.shape.borderRadius;
+        ret.borderBottomLeftRadius = s * theme.shape.borderRadius;
         break;
       case "end":
-        ret.borderTopLeftRadius = 5 * theme.shape.borderRadius;
+        ret.borderTopLeftRadius = s * theme.shape.borderRadius;
         ret.borderBottomLeftRadius = 0;
         break;
     }

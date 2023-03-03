@@ -1,7 +1,7 @@
 export const style = `
 @media (pointer: fine) {
 	.reactchat .rc-icon_button:hover {
-		background-color: whitesmoke;
+		// background-color: whitesmoke;
 	}
 }
 
@@ -25,10 +25,14 @@ export const style = `
 .rc-icon_button:focus {
   outline: none;
   box-shadow: none;
+  background-color: var(--rc-palette-paper);
+  fill: var(--rc-palette-on-paper-secondary);
 }
 
 .rc-icon_div {
 	width: 24px;
 	height: 24px;
+  background-color: var(--rc-palette-paper);
+  fill: var(--rc-palette-on-paper-secondary);
 }
 `;

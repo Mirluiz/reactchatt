@@ -11,6 +11,7 @@ export const ThemeContext = React.createContext<ThemeProps>({
     borderRadius: 1,
   },
   palette: {
+    accent: "#e17076",
     left: "rgb(255,255,255)",
     leftTitle: "#e17076",
     onLeft: "rgb(0,0,0)",
@@ -21,6 +22,8 @@ export const ThemeContext = React.createContext<ThemeProps>({
     onRightSecondary: "rgba(79,174,78,1)",
     background: "#95c48a",
     paper: "#fff",
+    onPaper: "black",
+    onPaperSecondary: "rgba(112,117,121,0.8)",
   },
   typography: {
     fontSize: "1.4rem",
