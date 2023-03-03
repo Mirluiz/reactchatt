@@ -1,17 +1,22 @@
-import React from "react";
+import React, { ErrorInfo } from "react";
+type BProps = {
+  children: React.ReactNode;
+};
+class ErrorBoundary extends React.Component<BProps> {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { hasError: false };
+  // }
+  state: { hasError: false } = {
+    hasError: false,
+  };
 
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: any) {
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // You can also log the error to an error reporting service
     // logErrorToMyService(error, errorInfo);
     console.error("something wrong", error, errorInfo);

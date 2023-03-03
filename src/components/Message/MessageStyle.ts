@@ -1,0 +1,33 @@
+export const style = `
+.reactchat .rc-message-text_container {
+	display: flex;
+	align-items: flex-end;
+}
+
+.reactchat .rc-message-text {
+	display: flex;
+	position: relative;
+	margin-left: 8px;
+	margin-right: 8px;
+}
+
+.reactchat .rc-message-text_body {
+	padding: 0.4rem;
+	display: flex;
+	background-color: var(--rc-palette-right-message);
+}
+
+.reactchat .rc-message-text-tail {
+	display: flex;
+	align-items: flex-end;
+	position: absolute;
+	bottom: 0;
+}
+
+.rc-message-text-tail.right {
+  right: -8px;
+}
+.rc-message-text-tail.left {
+  left: -8px;
+}
+`;
