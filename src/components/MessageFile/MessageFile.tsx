@@ -14,10 +14,20 @@ const MessageFile: FC<
     order: "start" | "end" | "middle" | "single";
   }
 > = (props) => {
-  const { files, order, id, date, repliedMessage, caption, status, owner } =
-    props;
+  const {
+    files,
+    order,
+    id,
+    date,
+    repliedMessage,
+    caption,
+    status,
+    owner,
+    edited,
+    pending,
+  } = props;
   const { getPosition, props: globalProps } = useChat();
-  const { avatar, onMessageClick, onMessageLongTouch, title } = globalProps;
+  const { avatar, onMessageClick, title } = globalProps;
   const theme = useTheme();
   const tail = useMemo(() => {
     return order === "end" || order === "single";
@@ -38,14 +48,7 @@ const MessageFile: FC<
     >
       {avatar && (
         <>
-          {position === "left" && !tail && (
-            <div
-              style={{
-                width: "30px",
-                minWidth: "30px",
-              }}
-            />
-          )}
+          {position === "left" && !tail && <Blank />}
           {position === "left" && tail && (
             <Avatar img={owner.avatar} name={owner.name} />
           )}
@@ -55,50 +58,42 @@ const MessageFile: FC<
         <div
           className="rc-message-file_body"
           style={{
-            flexDirection: "column-reverse",
             backgroundColor:
               position === "left" ? theme.palette.left : theme.palette.right,
             ...borderByOrder(theme, position, order),
           }}
         >
+          <Files files={files} position={position} message={props} />
+          {!caption && (
+            <MessageMeta
+              date={date}
+              status={status}
+              position={position}
+              style={"file"}
+              edited={edited ?? false}
+              pending={pending ?? false}
+            />
+          )}
           {caption && (
-            <div
-              style={{
-                marginTop: "4px",
-                width: "100%",
-              }}
+            <Typography
+              color={
+                position === "left"
+                  ? theme.palette.onLeft
+                  : theme.palette.onRight
+              }
             >
               {caption}
               <MessageMeta
                 date={date}
-                status={1}
-                position={position}
-                style={"text"}
-              />
-            </div>
-          )}
-
-          {repliedMessage && (
-            <div style={{ paddingBottom: ".4rem" }}>
-              <MessageReply {...repliedMessage} />
-            </div>
-          )}
-
-          <Files files={files} message={id} position={position} />
-          {!caption && (
-            <div
-              style={{
-                width: "100%",
-              }}
-            >
-              <MessageMeta
-                date={date}
                 status={status}
                 position={position}
-                style={"file"}
+                style={"text"}
+                edited={edited ?? false}
+                pending={pending ?? false}
               />
-            </div>
+            </Typography>
           )}
+
           <div>
             <div
               style={{
@@ -109,7 +104,11 @@ const MessageFile: FC<
                     : theme.palette.rightTitle,
               }}
             >
-              {position === "left" && title ? owner.name : ""}
+              {position === "left" && title ? (
+                <Typography>{owner.name}</Typography>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
@@ -132,23 +131,13 @@ const MessageFile: FC<
 
 const Files: FC<{
   files: Array<File> | undefined;
-  message: string;
+  message: MessageFileProps;
   position: "left" | "right";
 }> = (props) => {
   const { files, message, position } = props;
-  const theme = useTheme();
-  const { onMessageItemClick } = useChat().props;
 
   return (
-    <div
-      style={{
-        width: "100%",
-        cursor: "pointer",
-        display: "inline-flex",
-        flexDirection: "column",
-        gap: theme.space(0.5),
-      }}
-    >
+    <div className={"rc-message-files"}>
       {files?.map((file, index) => {
         return <_File file={file} message={message} position={position} />;
       })}
@@ -158,7 +147,7 @@ const Files: FC<{
 
 const _File: FC<{
   file: File;
-  message: string;
+  message: MessageFileProps;
   position: "left" | "right";
 }> = (props) => {
   const { file, message, position } = props;
@@ -167,23 +156,15 @@ const _File: FC<{
 
   return (
     <div
+      className={"rc-message-file_element"}
       onClick={(e) => {
         if (onMessageItemClick) {
-          onMessageItemClick(message, file.id);
+          onMessageItemClick(message.id, file.id);
           e.stopPropagation();
         }
       }}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: theme.space(1),
-      }}
     >
-      <div
-        style={{
-          display: "flex",
-        }}
-      >
+      <div className={"rc-message-file-doc"}>
         {file.type === "img" ? (
           <img
             style={{
@@ -201,58 +182,46 @@ const _File: FC<{
               borderRadius: theme.space(1),
               height: "40px",
               width: "40px",
-              objectFit: "cover",
+              objectFit: "fill",
             }}
             alt={file.title}
-            src={`/public/extension/${getFileExtIcon(file.title)}`}
+            src={`/extension/${getFileExtIcon(file.title)}`}
           />
         )}
       </div>
-      <div
-        style={{
-          maxWidth: "150px",
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-          gap: 0.5,
-          paddingRight: 2,
-        }}
-      >
-        <div
-          style={{
-            fontSize: "16px",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-          }}
+      <div className={"rc-message-file-text"}>
+        <Typography
+          size={"m"}
           title={file.title}
+          color={
+            position === "left" ? theme.palette.onLeft : theme.palette.onRight
+          }
         >
           {file.title}
-        </div>
-        <div
-          style={{
-            opacity: theme.space(0.5),
-            lineHeight: 1,
-            textOverflow: "ellipsis",
-            fontSize: "10px",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-          }}
+        </Typography>
+        <Typography
+          size={"s"}
+          color={
+            position === "left"
+              ? theme.palette.onLeftSecondary
+              : theme.palette.onRightSecondary
+          }
         >
-          <Typography
-            size={"es"}
-            color={
-              position === "left"
-                ? theme.palette.onLeftSecondary
-                : theme.palette.onRightSecondary
-            }
-          >
-            {file.size}
-          </Typography>
-        </div>
+          {file.secondary}
+        </Typography>
       </div>
     </div>
   );
 };
 
+const Blank = () => {
+  return (
+    <div
+      style={{
+        width: "30px",
+        minWidth: "30px",
+      }}
+    />
+  );
+};
 export default MessageFile;

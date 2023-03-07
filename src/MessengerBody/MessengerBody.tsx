@@ -33,8 +33,8 @@ const MessengerBody: FC<
   } = props;
 
   const theme = useTheme();
-  const { props: globalProps, getPosition } = useChat();
-  const { onEdgeReach, me } = globalProps;
+  const { props: globalProps, getPosition, days } = useChat();
+  const { onEdgeReach } = globalProps;
 
   const endReachedStatus = useRef<boolean>(false);
 
@@ -277,42 +277,6 @@ const MessengerBody: FC<
 
   return (
     <>
-      <div
-        style={{
-          height: loading ? "30px" : "0",
-          width: "100%",
-          borderRadius: theme.shape.borderRadius,
-          background: theme.palette.background,
-          transition: "height 200ms",
-          position: "absolute",
-          left: 0,
-          top: 5,
-          right: 0,
-          zIndex: 1,
-        }}
-      >
-        <div
-          style={{
-            height: "inherit",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              height: "inherit",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              overflow: "hidden",
-            }}
-          >
-            <Loader />
-          </div>
-        </div>
-      </div>
       <div className="rc-messages-scroll" ref={scrollContainerRef}>
         <div
           className="rc-container"
@@ -337,10 +301,11 @@ const MessengerBody: FC<
             {renderMessages.current.map((message, index) => {
               return (
                 <>
-                  {!sameDate(
-                    renderMessages.current[index - 1],
-                    renderMessages.current[index]
-                  ) &&
+                  {days &&
+                    !sameDate(
+                      renderMessages.current[index - 1],
+                      renderMessages.current[index]
+                    ) &&
                     props.date && (
                       <MessageSystemDate
                         date={message.date}
@@ -377,6 +342,39 @@ const MessengerBody: FC<
           </div>
         </div>
       </div>
+      <div
+        style={{
+          height: loading ? "30px" : "0",
+          width: "100%",
+          borderRadius: theme.shape.borderRadius,
+          backdropFilter: "blur(1px)",
+          transition: "height 200ms",
+          paddingTop: loading ? 4 : 0,
+          paddingBottom: loading ? 4 : 0,
+        }}
+      >
+        <div
+          style={{
+            height: "inherit",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              height: "inherit",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              overflow: "hidden",
+            }}
+          >
+            <Loader />
+          </div>
+        </div>
+      </div>
     </>
   );
 };
@@ -397,12 +395,14 @@ const Layer: FC<{
         if (onMessageDblClick) {
           onMessageDblClick(id);
           e.preventDefault();
+          e.stopPropagation();
         }
       }}
       onContextMenu={(e) => {
         if (onMessageContext) {
           onMessageContext(id);
           e.preventDefault();
+          e.stopPropagation();
         }
       }}
       style={{

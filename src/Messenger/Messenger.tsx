@@ -12,11 +12,7 @@ import { leftIcon, rightIcon, sendIcon } from "../assets/icons";
 import { Message, MessageFile, MessageImage } from "../components";
 import { Loader } from "../elements";
 import { ThemeOptions } from "../@types/theme";
-import {
-  defaultThemeValues,
-  setTheme,
-  setThemeToDocument,
-} from "../utils/theme";
+import { setTheme, setThemeToDocument } from "../utils/theme";
 import { MessageTextProps } from "../components";
 import { MessageImageProps } from "../components";
 import { MessageFileProps } from "../components";
@@ -29,39 +25,6 @@ const Messenger: FC<
     theme?: ThemeOptions;
   }
 > = (props) => {
-  const [themeInit, setThemeInit] = useState<boolean>(false);
-
-  const onMessageClick = useCallback((id: string) => {
-    props?.onMessageClick && props.onMessageClick(id);
-  }, []);
-
-  const onMessageDblClick = useCallback((id: string) => {
-    props?.onMessageDblClick && props?.onMessageDblClick(id);
-  }, []);
-
-  const onMessageItemClick = useCallback(
-    (message: string, id: string | false) => {
-      props?.onMessageItemClick && props?.onMessageItemClick(message, id);
-    },
-    []
-  );
-
-  const onMessageLongClick = useCallback((id: string) => {
-    props?.onMessageLongTouch && props?.onMessageLongTouch(id);
-  }, []);
-
-  const onPulled = useCallback((id: string) => {
-    props?.onPulled && props?.onPulled(id);
-  }, []);
-
-  const onMessageContext = useCallback((id: string) => {
-    props?.onMessageContext && props?.onMessageContext(id);
-  }, []);
-
-  const onEdgeReach = useCallback(() => {
-    props?.onEdgeReach && props?.onEdgeReach();
-  }, []);
-
   const renderTextMessage = useCallback(
     (
       message: MessageTextProps,
@@ -113,7 +76,6 @@ const Messenger: FC<
 
   useEffect(() => {
     setThemeToDocument(props.theme, document);
-    setThemeInit(true);
     ejectStyles(document);
   }, [props.theme]);
 
@@ -121,13 +83,14 @@ const Messenger: FC<
     <ThemeContext.Provider value={setTheme(props.theme)}>
       <ChatContext.Provider
         value={{
+          days: props.days !== undefined ? props.days : true,
           getPosition: (m) => {
             return m.owner.id === props.me ? "right" : "left";
           },
           props: {
             ...props,
-            avatar: props.avatar ?? true,
-            title: props.title ?? true,
+            avatar: props.avatar !== undefined ? props.avatar : true,
+            title: props.title !== undefined ? props.title : true,
           },
         }}
       >
@@ -148,13 +111,6 @@ const Messenger: FC<
               avatar={props?.avatar ?? true}
               pulling={props?.pulling ?? true}
               loading={props?.loading ?? false}
-              onMessageClick={onMessageClick}
-              onMessageDblClick={onMessageDblClick}
-              onMessageItemClick={onMessageItemClick}
-              onMessageLongTouch={onMessageLongClick}
-              onPulled={onPulled}
-              onMessageContext={onMessageContext}
-              onEdgeReach={onEdgeReach}
               renderTextMessage={renderTextMessage}
               renderImageMessage={renderImageMessage}
               renderFileMessage={renderFileMessage}

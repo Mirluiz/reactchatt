@@ -1,79 +1,53 @@
-import React, {
-  FC,
-  memo,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, memo, useRef } from "react";
 import { MessageMeta } from "../index";
 import { useChat, useTheme } from "../../hooks";
 import { Avatar, Typography } from "../../elements";
 import { MessageImageProps, Image } from "./MessageImageType";
-import { raf } from "../../utils/animation";
 
 const Message: FC<
   MessageImageProps & {
     order: "start" | "end" | "middle" | "single";
   }
 > = (props) => {
-  const { images, status, date, order, id, owner } = props;
-  const theme = useTheme();
+  const { images, status, date, order, id, owner, edited, pending } = props;
   const { props: globalProps, getPosition } = useChat();
-  const { avatar, onMessageItemClick, me } = globalProps;
+  const { avatar } = globalProps;
 
   const tail = order === "end" || order === "single";
   const singleImage = images?.length === 1 && images[0];
   const position = getPosition(props);
 
   return (
-    <div
-      className="rc-message-image_container"
-      style={{
-        display: "flex",
-        alignItems: "flex-end",
-      }}
-    >
+    <div className="rc-message-image_container">
       {avatar && (
         <>
-          {position === "left" && !tail && (
+          {position === "left" && !tail && <Blank />}
+          {position === "left" && tail && (
             <div
               style={{
-                width: "30px",
-                minWidth: "30px",
+                marginLeft: "3px",
               }}
-            />
-          )}
-          {position === "left" && tail && (
-            <Avatar img={owner.avatar} name={owner.name} />
+            >
+              <Avatar img={owner.avatar} name={owner.name} />
+            </div>
           )}
         </>
       )}
       <div
+        className="rc-message-image_body"
         style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "0.25rem",
-          borderRadius: 15 * theme.shape.borderRadius,
-          border: "1px solid white",
-          marginRight: position === "right" ? "5px" : 0,
-          marginLeft: position === "left" ? "5px" : 0,
           width: singleImage ? singleImage.width : "auto",
-          overflow: "hidden",
         }}
       >
-        <div
-          style={{
-            display: "flow-root",
-          }}
-        >
+        <div>
           <Images messageId={id} images={images} />
           <MessageMeta
             date={date}
             status={status}
             style={"image"}
             position={position}
+            edited={edited ?? false}
+            pending={pending ?? false}
           />
         </div>
       </div>
@@ -101,12 +75,8 @@ const Images: FC<{ messageId: string; images: Array<Image> | undefined }> = (
     >
       {singleImage ? (
         <div
+          className={"rc-singleImage_container"}
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 1,
-            overflow: "hidden",
             height: Math.min(singleImage.height, 300) + "px",
           }}
         >
@@ -124,20 +94,15 @@ const Images: FC<{ messageId: string; images: Array<Image> | undefined }> = (
       ) : (
         images && (
           <div
+            className="rc-images_container"
             style={{
-              width: "100%",
               height: height.current,
             }}
-            className="rc-images_container"
           >
             <ul
+              className={"rc-lu"}
               style={{
                 gridTemplateColumns: `1fr ${images.length === 2 ? 1 : 0.5}fr`,
-                gap: "4px",
-                listStyle: "none",
-                display: "grid",
-                padding: 0,
-                margin: 0,
               }}
             >
               {images?.map((img, index, images) => {
@@ -157,20 +122,24 @@ const Images: FC<{ messageId: string; images: Array<Image> | undefined }> = (
                 };
 
                 const getHeight = () => {
+                  const gapSize = 2;
+
                   return index === 0
                     ? height.current
                     : height.current / (length - 1) -
-                        (4 * (length - 2)) / (length - 1);
+                        (gapSize * (length - 2)) / (length - 1);
                 };
 
                 return (
                   <li
+                    className={"rc-li"}
                     style={{
                       gridColumnEnd: `span 1`,
                       gridRowEnd: `span ${index === 0 ? length - 1 : 1}`,
                     }}
                   >
                     <div
+                      className={"rc-li_image"}
                       onClick={(e) => {
                         if (onMessageItemClick) {
                           onMessageItemClick(
@@ -188,22 +157,10 @@ const Images: FC<{ messageId: string; images: Array<Image> | undefined }> = (
                             ? "inset 0 0 0 1000px rgba(0,0,0,.5)"
                             : "",
                         backgroundImage: `url(${img.url})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "center center",
-                        backgroundSize: "cover",
                       }}
                     >
                       {index === length - 1 && needGroup && (
-                        <div
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            backdropFilter: "blur(2px)",
-                          }}
-                        >
+                        <div className={"rc-li-group_image"}>
                           <Typography color={"white"} size={"l"}>
                             +{images.length - 3}
                           </Typography>
@@ -218,6 +175,17 @@ const Images: FC<{ messageId: string; images: Array<Image> | undefined }> = (
         )
       )}
     </div>
+  );
+};
+
+const Blank = () => {
+  return (
+    <div
+      style={{
+        width: "33px",
+        minWidth: "33px",
+      }}
+    />
   );
 };
 

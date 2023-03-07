@@ -28,10 +28,15 @@ export type PaletteProps = {
   onLeft: string;
   onLeftSecondary: string;
   background: string;
-  paper: string;
-  onPaper: string;
-  onPaperSecondary: string;
+  contrast: string;
+  onContrast: string;
+  composer: string;
+  onComposer: string;
   accent: string;
+  onAccent: string;
+  text: string;
+  reply: string;
+  onReply: string;
 };
 
 export type TypographyProps = {

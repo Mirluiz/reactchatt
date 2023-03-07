@@ -1,23 +1,24 @@
 import React, { FC } from "react";
 
 const Typography: FC<TypographyProps> = (props) => {
-  const { children, color, size, bold } = props;
+  const { children, color, size, bold, title } = props;
 
   const boldStyles = {
     thin: "300",
     normal: "normal",
-    bold: "900",
+    bold: "600",
   };
 
   const sizes = {
     es: ".5rem",
-    s: ".7rem",
+    s: ".63rem",
     m: "1rem",
     l: "2rem",
   };
 
   return (
     <div
+      title={title}
       className="rc-typography"
       style={{
         color: color,
@@ -35,6 +36,7 @@ interface TypographyProps {
   color?: string;
   size?: "es" | "s" | "m" | "l";
   bold?: "thin" | "normal" | "bold";
+  title?: string;
 }
 
 export default Typography;

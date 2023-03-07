@@ -7,12 +7,12 @@ export const style = `
 .reactchat .rc-message-text {
 	display: flex;
 	position: relative;
-	margin-left: 8px;
-	margin-right: 8px;
+	margin-left: var(--rc-sx-1);
+	margin-right: var(--rc-sx-1);
 }
 
 .reactchat .rc-message-text_body {
-	padding: 0.4rem;
+	padding: 7px;
 	display: flex;
 	background-color: var(--rc-palette-right-message);
 }
@@ -25,9 +25,9 @@ export const style = `
 }
 
 .rc-message-text-tail.right {
-  right: -8px;
+  right: -7.4px;
 }
 .rc-message-text-tail.left {
-  left: -8px;
+  left: -7.4px;
 }
 `;

@@ -1,7 +1,7 @@
 export const style = `
 .reactchat .rc-messages-scroll {
 	width: 100%;
-	flex-grow: 1;
+	flex: 1 1;
 	overflow-y: scroll;
 }
 
@@ -24,7 +24,7 @@ export const style = `
 
 .rc-messages-scroll .rc-list {
 	display: flex;
-	gap: var(--rc-sx-1);
+	
 	flex-direction: column;
 	width: 100%;
 }
@@ -33,6 +33,7 @@ export const style = `
 	width: 100%;
 	display: flex;
 	align-items: flex-end;
+	margin-top: var(--rc-sx-1);
 }
 
 @keyframes highlight {

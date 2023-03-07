@@ -13,6 +13,7 @@ const MessageWrapper: FC<{
         if (onMessageContext) {
           onMessageContext(messageId, true);
           e.preventDefault();
+          e.stopPropagation();
         }
       }}
       style={{

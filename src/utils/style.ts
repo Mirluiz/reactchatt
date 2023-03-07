@@ -19,7 +19,13 @@ import {
 } from "../elements";
 
 export const ejectStyles = (document: Document) => {
+  if (document.querySelector("#rc-style")) {
+    return;
+  }
+
   const style = document.createElement("style");
+  style.id = "rc-style";
+
   style.innerText = [
     MessageStyle,
     MessageFileStyle,

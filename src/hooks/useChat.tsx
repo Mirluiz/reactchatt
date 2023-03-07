@@ -10,9 +10,11 @@ const useChat = () => {
 export const ChatContext = React.createContext<{
   props: PartialMessengerProps;
   getPosition: (m: MessageProps) => "left" | "right";
+  days: boolean;
 }>({
   props: {},
   getPosition: () => "left",
+  days: true,
 });
 
 export default useChat;

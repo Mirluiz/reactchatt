@@ -4,6 +4,7 @@ export const style = `
   display: flex;
   justify-content: center;
   width: 100%;  
+  margin-top: var(--rc-sx-1);
   
   
 	-webkit-user-select: none; /* Safari */
@@ -13,12 +14,12 @@ export const style = `
 
 
 .rc-message-system-date {
-  background: rgba(134, 166, 118, .7);
+  background: var(--rc-palette-contrast);
   padding: var(--rc-sx-1);
   border-radius: 10px;
-  color: white;
-  text-align: center;
-  font-size: .7rem;
+  color: var(--rc-palette-on-contrast);
+  display: flex;
+  align-items: center;
 }
 
 `;

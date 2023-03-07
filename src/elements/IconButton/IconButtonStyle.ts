@@ -14,7 +14,7 @@ export const style = `
 	border: 0;
 	margin: 0;
 	border-radius: 50%;
-	background-color: var(--rc-palette-paper);
+	background-color: var(--rc-palette-composer);
 	padding: var(--rc-sx-1);
 	cursor: pointer;
 	-webkit-user-select: none; /* Safari */
@@ -25,14 +25,14 @@ export const style = `
 .rc-icon_button:focus {
   outline: none;
   box-shadow: none;
-  background-color: var(--rc-palette-paper);
-  fill: var(--rc-palette-on-paper-secondary);
+  background-color: var(--rc-palette-composer);
+  fill: var(--rc-palette-on-composer);
 }
 
 .rc-icon_div {
 	width: 24px;
 	height: 24px;
-  background-color: var(--rc-palette-paper);
-  fill: var(--rc-palette-on-paper-secondary);
+  background-color: var(--rc-palette-composer);
+  fill: var(--rc-palette-on-composer);
 }
 `;

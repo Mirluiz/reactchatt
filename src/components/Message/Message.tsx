@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import { MessageMeta } from "../index";
 import { useChat, useTheme } from "../../hooks";
 import MessageReply from "../MessageReply";
@@ -13,9 +13,19 @@ const Message: FC<
   }
 > = (props) => {
   const theme = useTheme();
-  const { order, id, date, repliedMessage, text, owner } = props;
+  const {
+    order,
+    id,
+    date,
+    repliedMessage,
+    text,
+    owner,
+    status,
+    edited,
+    pending,
+  } = props;
   const { props: globalProps, getPosition } = useChat();
-  const { avatar, onMessageClick, onMessageLongTouch, title } = globalProps;
+  const { avatar, onMessageClick, title } = globalProps;
   const tail = useMemo(() => {
     return order === "end" || order === "single";
   }, [order]);
@@ -23,30 +33,20 @@ const Message: FC<
     return getPosition(props);
   }, [props]);
 
-  useEffect(() => {
-    console.log("theme", theme);
-  }, [theme]);
-
   return (
     <div
       className="rc-message-text_container"
       onClick={(e) => {
         if (onMessageClick) {
           onMessageClick(id);
+          e.preventDefault();
           e.stopPropagation();
         }
       }}
     >
       {avatar && (
         <>
-          {position === "left" && !tail && (
-            <div
-              style={{
-                width: "30px",
-                minWidth: "30px",
-              }}
-            />
-          )}
+          {position === "left" && !tail && <Blank />}
           {position === "left" && tail && (
             <Avatar img={owner.avatar} name={owner.name} />
           )}
@@ -69,43 +69,43 @@ const Message: FC<
         >
           <div>
             {repliedMessage && (
-              <div style={{ paddingBottom: ".4rem" }}>
-                <MessageReply {...repliedMessage} />
-              </div>
+              <MessageReply message={repliedMessage} parent={props} />
             )}
-            <div
-              style={{
-                display: "flow-root",
-              }}
-            >
-              <div>
-                <div
-                  style={{
-                    color:
-                      position === "left"
-                        ? theme.palette.leftTitle
-                        : theme.palette.rightTitle,
-                  }}
-                >
-                  {position === "left" && title ? owner.name : ""}
-                </div>
-              </div>
-              <Typography
-                color={
-                  position === "left"
-                    ? theme.palette.onLeft
-                    : theme.palette.onRight
-                }
+
+            {position === "left" && title ? (
+              <div
+                style={{
+                  marginBottom: 4,
+                  color:
+                    position === "left"
+                      ? theme.palette.leftTitle
+                      : theme.palette.rightTitle,
+                }}
               >
-                {text}
-              </Typography>
+                {" "}
+                <Typography>{owner.name}</Typography>
+              </div>
+            ) : (
+              ""
+            )}
+
+            <Typography
+              color={
+                position === "left"
+                  ? theme.palette.onLeft
+                  : theme.palette.onRight
+              }
+            >
+              {text}
               <MessageMeta
                 date={date}
-                status={1}
+                status={status}
                 position={position}
                 style={"text"}
+                edited={edited ?? false}
+                pending={pending ?? false}
               />
-            </div>
+            </Typography>
           </div>
         </div>
         {tail && (
@@ -122,6 +122,17 @@ const Message: FC<
         )}
       </div>
     </div>
+  );
+};
+
+const Blank = () => {
+  return (
+    <div
+      style={{
+        width: "30px",
+        minWidth: "30px",
+      }}
+    />
   );
 };
 

@@ -40,15 +40,17 @@ import { ReactChat } from "reactchatt";
 
 ### Events
 
-|                    |                      Description                      |                   Type                   |
-| :----------------: | :---------------------------------------------------: | :--------------------------------------: |
-|      Message       |                     Message click                     |          `(id: string) => void`          |
-| onMessageDblClick  |                 Message double click                  |          `(id: string) => void`          |
-| onMessageItemClick | Message item click callback<br/> (e.g Multi messages) | `(message: string, id: string) => void;` |
-| onMessageLongClick |              Message long Touch (mobile)              |          `(id: string) => void`          |
-|      onPulled      |                Message Pulled (mobile)                |          `(id: string) => void`          |
-|  onMessageContext  |               On message context click                |          `(id: string) => void`          |
-|    onEdgeReach     |                Edge reach by scrolling                |               `() => void`               |
+|                          |                      Description                      |                       Type                       |
+|:------------------------:|:-----------------------------------------------------:|:------------------------------------------------:|
+|      onMessageClick      |                     Message click                     |              `(id: string) => void`              |
+|    onMessageDblClick     |                 Message double click                  |              `(id: string) => void`              |
+|    onMessageItemClick    | Message item click callback<br/> (e.g Multi messages) |     `(message: string, id: string) => void;`     |
+|    onMessageLongClick    |              Message long Touch (mobile)              |              `(id: string) => void`              |
+|         onPulled         |        Message Pulled (mobile) (temp unstable)        |              `(id: string) => void`              |
+|     onMessageContext     |               On message context click                |              `(id: string) => void`              |
+|       onEdgeReach        |                Edge reach by scrolling                |                   `() => void`                   |
+| onMessageSystemDateClick |                      Days Click                       |              `(date: Date) => void`              |
+|   onReplyMessageClick    |             Reply part clicked of message             | `(messageId: string, parentId?: string) => void` |
 
 ### Message types
 
@@ -118,7 +120,6 @@ interface MessageImageProps {
 	id: string;
 	title: string;
 	avatar?: string;
-	position: "left" | "right";
 	status: MessageStatus;
 	pending?: boolean;
 	edited?: boolean;
@@ -140,27 +141,7 @@ export interface Image {
 
 <img src='https://github.com/Mirluiz/reactchatt/blob/master/images.png'/>
 
-### Custom renders
 
-|                    |     Description      |                        Type                        |
-| :----------------: | :------------------: | :------------------------------------------------: | ----- | -------- | ------------------------- |
-| renderTextMessage  | Custom text message  | `(message: MessageTextProps, order: "start" <br/>  | "end" | "middle" | "single") => JSX.Element` |
-| renderImageMessage | Custom image message | `(message: MessageImageProps, order: "start" <br/> | "end" | "middle" | "single") => JSX.Element` |
-| renderFileMessage  | Custom file message  | `(message: MessageFileProps, order: "start" <br/>  | "end" | "middle" | "single") => JSX.Element` |
-
-### useChatApi
-
-|          |       Description       |          Type          |
-| :------: | :---------------------: | :--------------------: |
-| scrollTo | Scroll to exact message | `(id: string) => void` |
-
-## Plans
-
-|                                   |             |
-| :-------------------------------: | :---------: |
-|           Multi images            | In progress |
-|         Messenger header          |    Idle     |
-| Messenger header typing animation |    Idle     |
 
 ## Contributing
 

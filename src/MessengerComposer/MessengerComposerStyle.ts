@@ -1,21 +1,21 @@
 export const style = `
 .reactchat .rc-composer {
 	padding-top: var(--rc-sx-1);
-	margin-top: var(--rc-sx-0.5);
-	margin-bottom: var(--rc-sx-0.5);
+	margin-top: var(--rc-sx-05);
+	margin-bottom: var(--rc-sx-05);
 	display: flex;
 	width: 100%;
 	justify-content: center;
-	gap: var(--rc-sx-1);
 }
 
 .reactchat .rc-composer__left {
 	width: 100%;
-	background-color: var(--rc-palette-paper);
+	background-color: var(--rc-palette-composer);
 	border-radius: var(--rc-shape-border-radius);
 	border-bottom-right-radius: 0;
 	display: flex;
 	flex-direction: column;
+	margin-right: var(--rc-sx-1);
 }
 
 .reactchat .rc-composer__main {
@@ -25,7 +25,6 @@ export const style = `
 	display: flex;
 	justify-content: center;
 	align-items: flex-end;
-	gap: var(--rc-sx-1-nopx);
 }
 
 .reactchat .rc-left__icon {
@@ -43,7 +42,7 @@ export const style = `
 	justify-content: flex-start;
 	align-items: center;
 	position: relative;
-	background-color: var(--rc-palette-paper);
+	background-color: var(--rc-palette-composer);
 }
 
 .reactchat .rc-textarea {
@@ -58,8 +57,8 @@ export const style = `
 	padding-top: var(--rc-sx-1);
 	padding-bottom: var(--rc-sx-1);
 	max-height: 200px;
-  background-color: var(--rc-palette-paper);
-  color: var(--rc-palette-on-paper);
+  background-color: var(--rc-palette-composer);
+  color: var(--rc-palette-text);
 }
 .reactchat .rc-textarea_hidden {
 	visibility: hidden;
@@ -74,6 +73,19 @@ export const style = `
 	padding: 0;
 }
 
+.reactchat .rc-send__icon {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  fill: var(--rc-palette-accent) !important;
+}
+
+.reactchat .rc-send__icon .rc-icon_div {
+  position: relative;
+  right: -2px;
+}
+
 .reactchat .rc-composer-replyMessage {
 	max-height: 70px;
 	padding-left: var(--rc-sx-2);
@@ -85,5 +97,6 @@ export const style = `
 	overflow: hidden;
 	position: relative;
 }
+
 
 `;

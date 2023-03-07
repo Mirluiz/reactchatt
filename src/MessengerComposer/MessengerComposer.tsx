@@ -3,6 +3,7 @@ import Reply from "../components/MessageReply";
 import IconButton from "../elements/IconButton";
 import { useTheme } from "../hooks";
 import { MessengerComposerProps } from "./MessengerComposerType";
+import { tail } from "../assets/icons";
 
 const MessengerComposer: FC<MessengerComposerProps> = (props) => {
   const {
@@ -26,7 +27,10 @@ const MessengerComposer: FC<MessengerComposerProps> = (props) => {
   const theme = useTheme();
 
   const clearInput = () => {
-    if (inputRef.current) inputRef.current.value = "";
+    if (inputRef.current) {
+      inputRef.current.value = "";
+      textAreaAdjust();
+    }
   };
 
   function textAreaAdjust() {
@@ -43,7 +47,7 @@ const MessengerComposer: FC<MessengerComposerProps> = (props) => {
       <div className="rc-composer__left">
         {composerReplyMessage && (
           <div className="rc-composer-replyMessage">
-            <Reply {...composerReplyMessage} />
+            <Reply message={composerReplyMessage} />
             <IconButton
               onClick={() => onComposerReplyCancel && onComposerReplyCancel()}
             >
@@ -96,40 +100,17 @@ const MessengerComposer: FC<MessengerComposerProps> = (props) => {
               position: "absolute",
               display: "flex",
               alignItems: "flex-end",
-              right: -5,
+              right: "-7.4px",
             }}
           >
-            <svg
-              className="bubble_icon"
-              width="5px"
-              height="10px"
-              viewBox="0 0 5 10"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g fill="none">
-                <path
-                  d="M 0 10
-                       H 5
-                       V 10
-                       Q 1 6 0 0
-                       Z"
-                  fill={theme.palette.paper}
-                />
-              </g>
-            </svg>
+            {tail(theme.palette.composer, "right")}
           </div>
         </div>
       </div>
 
-      <div
-        style={{
-          height: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "flex-end",
-        }}
-      >
+      <div className="rc-send__icon">
         <IconButton
+          color={theme.palette.accent}
           onClick={() => {
             clearInput();
             onSendClick && onSendClick();

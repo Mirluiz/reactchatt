@@ -23,9 +23,6 @@ import {
 export const defaultThemeValues: ThemeProps = {
   palette: {
     background: "#95c48a",
-    paper: "#fff",
-    onPaper: "black",
-    onPaperSecondary: "rgba(112,117,121,0.8)",
     left: "#ffffff",
     leftTitle: "#e17076",
     onLeft: "#000000",
@@ -33,8 +30,16 @@ export const defaultThemeValues: ThemeProps = {
     right: "#eeffde",
     rightTitle: "#6ec9cb",
     onRight: "#000000",
-    onRightSecondary: "#4fae4e",
-    accent: "#e17076",
+    onRightSecondary: "#45af54ff",
+    accent: "#3390ecff",
+    onAccent: "#fff",
+    contrast: "#45af544d",
+    onContrast: "#fff",
+    composer: "#fff",
+    onComposer: "#000",
+    text: "#000",
+    reply: "#3390ecff",
+    onReply: "#fff",
   },
   shape: {
     borderRadius: 1,
@@ -117,17 +122,11 @@ export const setTheme = (theme?: ThemeOptions): ThemeProps => {
     palette: {
       background:
         theme?.palette?.background ?? defaultThemeValues.palette.background,
-      paper: theme?.palette?.paper ?? defaultThemeValues.palette.paper,
-      onPaper: theme?.palette?.onPaper ?? defaultThemeValues.palette.onPaper,
-      onPaperSecondary:
-        theme?.palette?.onPaperSecondary ??
-        defaultThemeValues.palette.onPaperSecondary,
 
       left: theme?.palette?.left ?? defaultThemeValues.palette.left,
       leftTitle:
         theme?.palette?.leftTitle ?? defaultThemeValues.palette.leftTitle,
       onLeft: theme?.palette?.onLeft ?? defaultThemeValues.palette.onLeft,
-      accent: theme?.palette?.accent ?? defaultThemeValues.palette.accent,
 
       onLeftSecondary:
         theme?.palette?.onLeftSecondary ??
@@ -139,6 +138,17 @@ export const setTheme = (theme?: ThemeOptions): ThemeProps => {
       onRightSecondary:
         theme?.palette?.onRightSecondary ??
         defaultThemeValues.palette.onRightSecondary,
+      contrast: theme?.palette?.contrast ?? defaultThemeValues.palette.contrast,
+      onContrast:
+        theme?.palette?.onContrast ?? defaultThemeValues.palette.onContrast,
+      onAccent: theme?.palette?.onAccent ?? defaultThemeValues.palette.onAccent,
+      accent: theme?.palette?.accent ?? defaultThemeValues.palette.accent,
+      onComposer:
+        theme?.palette?.onComposer ?? defaultThemeValues.palette.onComposer,
+      composer: theme?.palette?.composer ?? defaultThemeValues.palette.composer,
+      text: theme?.palette?.text ?? defaultThemeValues.palette.text,
+      reply: theme?.palette?.reply ?? defaultThemeValues.palette.reply,
+      onReply: theme?.palette?.onReply ?? defaultThemeValues.palette.onReply,
     },
     shape: {
       borderRadius:
@@ -174,9 +184,6 @@ const THEME_NAMES: {
 } = {
   palette: {
     background: "--rc-palette-background",
-    paper: "--rc-palette-paper",
-    onPaper: "--rc-palette-on-paper",
-    onPaperSecondary: "--rc-palette-on-paper-secondary",
     right: "--rc-palette-right-message",
     rightTitle: "--rc-palette-right-message-title",
     onRight: "--rc-palette-on-right-message",
@@ -185,7 +192,15 @@ const THEME_NAMES: {
     leftTitle: "--rc-palette-left-message-title",
     onLeft: "--rc-palette-on-left-message",
     onLeftSecondary: "--rc-palette-on-left-message-secondary",
+    contrast: "--rc-palette-contrast",
+    onContrast: "--rc-palette-on-contrast",
     accent: "--rc-palette-accent",
+    onAccent: "--rc-palette-on-accent",
+    composer: "--rc-palette-composer",
+    onComposer: "--rc-palette-on-composer",
+    text: "--rc-palette-text",
+    reply: "--rc-palette-reply",
+    onReply: "--rc-palette-on-reply",
   },
   typography: {
     fontFamily: "--rc-typography-font-family",
@@ -196,7 +211,7 @@ const THEME_NAMES: {
   },
   sx: {
     sx0_5: {
-      name: "--rc-sx-0.5",
+      name: "--rc-sx-05",
       fn: (spacing: number) => `${spacing / 2}px`,
     },
     sx1: {

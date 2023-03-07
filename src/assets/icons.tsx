@@ -24,19 +24,18 @@ export const rightIcon = (
 );
 export const sendIcon = (
   <svg
+    className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiBox-root css-1om0hkc"
     focusable="false"
     aria-hidden="true"
     viewBox="0 0 24 24"
-    data-testid="EmailOutlinedIcon"
   >
-    <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path>
+    <path d="m3.4 20.4 17.45-7.48c.81-.35.81-1.49 0-1.84L3.4 3.6c-.66-.29-1.39.2-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"></path>
   </svg>
 );
 
 export const tail = (color: string, position: "left" | "right") => {
   return (
     <svg
-      className="bubble_icon"
       width="8px"
       height="15px"
       viewBox="0 0 8 15"
@@ -59,25 +58,15 @@ export const tail = (color: string, position: "left" | "right") => {
   );
 };
 
-export const ___tail = (color: string, position: string) => {
+export const pending = () => {
   return (
     <svg
-      className="bubble_icon"
-      width="8px"
-      height="15px"
-      viewBox="0 0 8 15"
-      xmlns="http://www.w3.org/2000/svg"
+      focusable="false"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      data-testid="AccessTimeRoundedIcon"
     >
-      <g fill="black">
-        <path
-          d="M 0 15
-                 H 5.4
-                 Q 6.1 14.6 6 13.7
-                 Q 0 4 0 0
-                 Z"
-          fill={color}
-        />
-      </g>
+      <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-.22-13h-.06c-.4 0-.72.32-.72.72v4.72c0 .35.18.68.49.86l4.15 2.49c.34.2.78.1.98-.24.21-.34.1-.79-.25-.99l-3.87-2.3V7.72c0-.4-.32-.72-.72-.72z"></path>
     </svg>
   );
 };

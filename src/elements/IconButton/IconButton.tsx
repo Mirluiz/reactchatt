@@ -2,8 +2,7 @@ import React, { Children, DOMAttributes, FC } from "react";
 import { useTheme } from "../../hooks";
 
 const IconButton: FC<IconButtonProps> = (props) => {
-  const { children, onClick, color } = props;
-  const theme = useTheme();
+  const { children, onClick, background, color } = props;
 
   return (
     <button
@@ -11,8 +10,19 @@ const IconButton: FC<IconButtonProps> = (props) => {
         if (onClick) onClick();
       }}
       className="rc-icon_button"
+      style={{
+        background: background,
+      }}
     >
-      <div className="rc-icon_div">{children}</div>
+      <div
+        style={{
+          background: background,
+          fill: color,
+        }}
+        className="rc-icon_div"
+      >
+        {children}
+      </div>
     </button>
   );
 };
@@ -20,6 +30,7 @@ const IconButton: FC<IconButtonProps> = (props) => {
 interface IconButtonProps extends DOMAttributes<HTMLDivElement> {
   children: React.ReactNode;
   onClick?: () => void;
+  background?: string;
   color?: string;
 }
 

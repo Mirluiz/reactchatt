@@ -18,7 +18,6 @@ export type MessageCoreProps = {
   type: "text" | "file" | "img" | string; // string is stand for "any"
   repliedMessage?: MessageProps;
   owner: Owner;
-  // getPosition: () => "right" | "left";
 };
 
 export enum MessageStatus {

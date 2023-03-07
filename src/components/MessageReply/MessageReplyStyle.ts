@@ -1,37 +1,39 @@
 export const style = `
- .rc-message-reply_overflow {
+.reactchat .rc-message-reply_overflow {
   overflow: hidden;
+  margin-bottom: var(--rc-sx-05);
+  cursor: pointer;
 }
 
-.rc-message-reply_container {
-  border-left: 3px solid var(--rc-palette-accent);
-  padding-left: var(--rc-sx-1);
+.reactchat .rc-message-reply_container {
+  border-left: 2px solid var(--rc-palette-reply);
+  padding-left: var(--rc-sx-05);
 }
 
 
-.rc-message-reply_info {
+.reactchat .rc-message-reply_info {
   display: flex;
   flex-direction: column;
 }
 
-.rc-message-reply_title {
-  color: var(--rc-palette-accent);
+.reactchat .rc-message-reply_title {
+  color: var(--rc-palette-reply);
+  overflow: hidden;
 }
 
-.rc-message-reply_text {
+.reactchat .rc-message-reply_text {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
   overflow: hidden;
-  color: var(--rc-palette-on-paper);
+  color: var(--rc-palette-text);
 }
 
 
-.rc-message-reply-image_info {
+.reactchat .rc-message-reply-image_info {
   display: flex;
-  gap: var(--rc-sx-1);
-  align-items: center;
+  overflow: hidden;
 }
 `;

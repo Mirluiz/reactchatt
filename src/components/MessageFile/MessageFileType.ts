@@ -5,7 +5,7 @@ export interface File {
   type: "img" | "doc";
   title: string;
   url: string;
-  size?: string;
+  secondary?: string;
 }
 
 export interface MessageFileProps extends MessageCoreProps {
