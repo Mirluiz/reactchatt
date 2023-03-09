@@ -17,5 +17,9 @@
     "outDir": "dist",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-  }
+  },
+  "files":[
+    "./src/index.ts",
+    "./typings/browser.d.ts"
+  ]
 }
