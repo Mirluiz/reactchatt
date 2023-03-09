@@ -23,6 +23,7 @@ import {
 export const defaultThemeValues: ThemeProps = {
   palette: {
     background: "#95c48a",
+    onBackground: "#f4f4f5",
     left: "#ffffff",
     leftTitle: "#e17076",
     onLeft: "#000000",
@@ -122,7 +123,8 @@ export const setTheme = (theme?: ThemeOptions): ThemeProps => {
     palette: {
       background:
         theme?.palette?.background ?? defaultThemeValues.palette.background,
-
+      onBackground:
+        theme?.palette?.onBackground ?? defaultThemeValues.palette.onBackground,
       left: theme?.palette?.left ?? defaultThemeValues.palette.left,
       leftTitle:
         theme?.palette?.leftTitle ?? defaultThemeValues.palette.leftTitle,
@@ -184,6 +186,7 @@ const THEME_NAMES: {
 } = {
   palette: {
     background: "--rc-palette-background",
+    onBackground: "--rc-palette-on-background",
     right: "--rc-palette-right-message",
     rightTitle: "--rc-palette-right-message-title",
     onRight: "--rc-palette-on-right-message",

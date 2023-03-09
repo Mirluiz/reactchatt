@@ -19,6 +19,7 @@ import { MessageFileProps } from "../components";
 import { ejectStyles } from "../utils/style";
 import { PartialMessengerProps } from "./MessengerType";
 import { ThemeContext } from "../hooks";
+import { MessageOrder } from "../@types/message";
 
 const Messenger: FC<
   PartialMessengerProps & {
@@ -26,10 +27,7 @@ const Messenger: FC<
   }
 > = (props) => {
   const renderTextMessage = useCallback(
-    (
-      message: MessageTextProps,
-      order: "start" | "end" | "middle" | "single"
-    ) => {
+    (message: MessageTextProps, order: MessageOrder) => {
       return (
         (props?.renderTextMessage &&
           props.renderTextMessage(message, order)) ?? (
@@ -41,10 +39,7 @@ const Messenger: FC<
   );
 
   const renderImageMessage = useCallback(
-    (
-      message: MessageImageProps,
-      order: "start" | "end" | "middle" | "single"
-    ) => {
+    (message: MessageImageProps, order: MessageOrder) => {
       return (
         (props?.renderImageMessage &&
           props.renderImageMessage(message, order)) ?? (
@@ -56,10 +51,7 @@ const Messenger: FC<
   );
 
   const renderFileMessage = useCallback(
-    (
-      message: MessageFileProps,
-      order: "start" | "end" | "middle" | "single"
-    ) => {
+    (message: MessageFileProps, order: MessageOrder) => {
       return (
         (props?.renderFileMessage &&
           props.renderFileMessage(message, order)) ?? (
@@ -69,10 +61,6 @@ const Messenger: FC<
     },
     []
   );
-
-  const renderLoader = useCallback(() => {
-    return (props?.renderLoader && props.renderLoader()) ?? <Loader />;
-  }, []);
 
   useEffect(() => {
     setThemeToDocument(props.theme, document);
@@ -105,6 +93,7 @@ const Messenger: FC<
             <MessengerBody
               threshold={props?.threshold ?? 0}
               typing={props?.typing ?? false}
+              typingInfo={props.typingInfo ?? props.typingInfo}
               date={props?.date ?? true}
               dateFormat={props?.dateFormat ?? "MMMM D"}
               title={props?.title ?? false}
@@ -114,7 +103,7 @@ const Messenger: FC<
               renderTextMessage={renderTextMessage}
               renderImageMessage={renderImageMessage}
               renderFileMessage={renderFileMessage}
-              renderLoader={renderLoader}
+              renderAny={props?.renderAny ?? (() => <></>)}
               messages={props?.messages ?? []}
             />
             <MessengerComposer

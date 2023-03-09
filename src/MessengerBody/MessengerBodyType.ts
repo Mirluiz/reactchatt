@@ -1,11 +1,17 @@
 import { MessageTextProps } from "../components";
 import { MessageFileProps } from "../components";
 import { MessageImageProps } from "../components";
+import {
+  MessageCoreProps,
+  MessageOrder,
+  MessageProps,
+} from "../@types/message";
 
 export interface MessengerBodyProps {
   threshold: number;
   title: boolean;
   typing: boolean;
+  typingInfo?: string;
   avatar: boolean;
   pulling: boolean;
   loading: boolean;
@@ -14,15 +20,15 @@ export interface MessengerBodyProps {
 
   renderTextMessage: (
     message: MessageTextProps,
-    order: "start" | "end" | "middle" | "single"
+    order: MessageOrder
   ) => JSX.Element;
   renderImageMessage: (
     message: MessageImageProps,
-    order: "start" | "end" | "middle" | "single"
+    order: MessageOrder
   ) => JSX.Element;
   renderFileMessage: (
     message: MessageFileProps,
-    order: "start" | "end" | "middle" | "single"
+    order: MessageOrder
   ) => JSX.Element;
-  renderLoader: () => JSX.Element;
+  renderAny: (message: MessageCoreProps, order: MessageOrder) => JSX.Element;
 }

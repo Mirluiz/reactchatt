@@ -11,23 +11,26 @@ export type Owner = {
 export type MessageCoreProps = {
   id: string;
   status: MessageStatus;
-  pending?: boolean;
   edited?: boolean;
   date: Date;
   dateFormat?: string;
-  type: "text" | "file" | "img" | string; // string is stand for "any"
+  type: "text" | "file" | "img" | "any";
   repliedMessage?: MessageProps;
   owner: Owner;
 };
 
 export enum MessageStatus {
   created,
+  pending,
   sent,
-  delivered,
   read,
+  error,
 }
 
 export type MessageProps =
+  | MessageCoreProps
   | MessageTextProps
   | MessageFileProps
   | MessageImageProps;
+
+export type MessageOrder = "start" | "end" | "middle" | "single";

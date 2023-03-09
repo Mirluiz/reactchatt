@@ -9,7 +9,7 @@ const Message: FC<
     order: "start" | "end" | "middle" | "single";
   }
 > = (props) => {
-  const { images, status, date, order, id, owner, edited, pending } = props;
+  const { images, status, date, order, id, owner, edited } = props;
   const { props: globalProps, getPosition } = useChat();
   const { avatar } = globalProps;
 
@@ -47,7 +47,6 @@ const Message: FC<
             style={"image"}
             position={position}
             edited={edited ?? false}
-            pending={pending ?? false}
           />
         </div>
       </div>

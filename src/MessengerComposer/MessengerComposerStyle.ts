@@ -1,6 +1,5 @@
 export const style = `
 .reactchat .rc-composer {
-	padding-top: var(--rc-sx-1);
 	margin-top: var(--rc-sx-05);
 	margin-bottom: var(--rc-sx-05);
 	display: flex;

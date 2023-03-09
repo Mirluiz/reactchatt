@@ -9,3 +9,6 @@ export * from "./Typography";
 
 export { default as Loader } from "./Loader";
 export * from "./Loader";
+
+export { default as Typing } from "./Typing";
+export * from "./Typing";

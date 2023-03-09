@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 const Typography: FC<TypographyProps> = (props) => {
-  const { children, color, size, bold, title } = props;
+  const { children, color, size, bold, title, fontSize } = props;
 
   const boldStyles = {
     thin: "300",
@@ -22,7 +22,7 @@ const Typography: FC<TypographyProps> = (props) => {
       className="rc-typography"
       style={{
         color: color,
-        fontSize: size ? sizes[size] : sizes["m"],
+        fontSize: fontSize ? fontSize : size ? sizes[size] : sizes["m"],
         fontWeight: bold ? boldStyles[bold] : boldStyles["normal"],
       }}
     >
@@ -35,6 +35,8 @@ interface TypographyProps {
   children: React.ReactNode;
   color?: string;
   size?: "es" | "s" | "m" | "l";
+
+  fontSize?: string;
   bold?: "thin" | "normal" | "bold";
   title?: string;
 }

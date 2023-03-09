@@ -13,17 +13,8 @@ const Message: FC<
   }
 > = (props) => {
   const theme = useTheme();
-  const {
-    order,
-    id,
-    date,
-    repliedMessage,
-    text,
-    owner,
-    status,
-    edited,
-    pending,
-  } = props;
+  const { order, id, date, repliedMessage, text, owner, status, edited } =
+    props;
   const { props: globalProps, getPosition } = useChat();
   const { avatar, onMessageClick, title } = globalProps;
   const tail = useMemo(() => {
@@ -103,7 +94,6 @@ const Message: FC<
                 position={position}
                 style={"text"}
                 edited={edited ?? false}
-                pending={pending ?? false}
               />
             </Typography>
           </div>

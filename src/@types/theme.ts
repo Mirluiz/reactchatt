@@ -28,6 +28,7 @@ export type PaletteProps = {
   onLeft: string;
   onLeftSecondary: string;
   background: string;
+  onBackground: string;
   contrast: string;
   onContrast: string;
   composer: string;

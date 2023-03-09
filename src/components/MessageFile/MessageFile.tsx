@@ -14,18 +14,7 @@ const MessageFile: FC<
     order: "start" | "end" | "middle" | "single";
   }
 > = (props) => {
-  const {
-    files,
-    order,
-    id,
-    date,
-    repliedMessage,
-    caption,
-    status,
-    owner,
-    edited,
-    pending,
-  } = props;
+  const { files, order, id, date, caption, status, owner, edited } = props;
   const { getPosition, props: globalProps } = useChat();
   const { avatar, onMessageClick, title } = globalProps;
   const theme = useTheme();
@@ -71,7 +60,6 @@ const MessageFile: FC<
               position={position}
               style={"file"}
               edited={edited ?? false}
-              pending={pending ?? false}
             />
           )}
           {caption && (
@@ -89,7 +77,6 @@ const MessageFile: FC<
                 position={position}
                 style={"text"}
                 edited={edited ?? false}
-                pending={pending ?? false}
               />
             </Typography>
           )}

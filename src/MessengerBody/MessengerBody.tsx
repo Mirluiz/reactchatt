@@ -8,12 +8,12 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { isText, isImage, isFile } from "../utils/guards";
+import { isText, isImage, isFile, isAny } from "../utils/guards";
 import { useChat } from "../hooks";
 import { useTheme } from "../hooks/useTheme";
 import { scheduler } from "../utils/scheduler";
 import { animate, raf } from "../utils/animation";
-import { Loader } from "../elements";
+import { Loader, Typing, Typography } from "../elements";
 import { MessengerBodyProps } from "./MessengerBodyType";
 import { MessageProps } from "../@types/message";
 import { MessageSystemDate, MessageWrapper } from "../components";
@@ -30,6 +30,9 @@ const MessengerBody: FC<
     renderImageMessage,
     renderFileMessage,
     renderTextMessage,
+    renderAny,
+    typing,
+    typingInfo,
   } = props;
 
   const theme = useTheme();
@@ -317,24 +320,28 @@ const MessengerBody: FC<
                     position={getPosition(message)}
                     key={message.id}
                   >
-                    {isText(message) ? (
-                      renderTextMessage(
-                        message,
-                        checkOrder(renderMessages.current, index)
-                      )
-                    ) : isImage(message) ? (
-                      renderImageMessage(
-                        message,
-                        checkOrder(renderMessages.current, index)
-                      )
-                    ) : isFile(message) ? (
-                      renderFileMessage(
-                        message,
-                        checkOrder(renderMessages.current, index)
-                      )
-                    ) : (
-                      <></>
-                    )}
+                    <>
+                      {isText(message) &&
+                        renderTextMessage(
+                          message,
+                          checkOrder(renderMessages.current, index)
+                        )}
+                      {isImage(message) &&
+                        renderImageMessage(
+                          message,
+                          checkOrder(renderMessages.current, index)
+                        )}
+                      {isFile(message) &&
+                        renderFileMessage(
+                          message,
+                          checkOrder(renderMessages.current, index)
+                        )}
+                      {isAny(message) &&
+                        renderAny(
+                          message,
+                          checkOrder(renderMessages.current, index)
+                        )}
+                    </>
                   </Layer>
                 </>
               );
@@ -374,6 +381,41 @@ const MessengerBody: FC<
             <Loader />
           </div>
         </div>
+      </div>
+      <div
+        style={{
+          height: "8px",
+          width: "100%",
+          display: "flex",
+          justifyContent: "flex-start",
+        }}
+      >
+        {typing && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {typingInfo && (
+              <div
+                style={{
+                  marginRight: 8,
+                  height: 8,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Typography size={"s"} color={theme.palette.onBackground}>
+                  {typingInfo}
+                </Typography>
+              </div>
+            )}
+            <Typing />
+          </div>
+        )}
       </div>
     </>
   );

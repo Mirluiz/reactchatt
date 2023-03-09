@@ -16,6 +16,7 @@ import {
   LoaderStyle,
   IconButtonStyle,
   TypographyStyle,
+  TypingStyle,
 } from "../elements";
 
 export const ejectStyles = (document: Document) => {
@@ -40,6 +41,7 @@ export const ejectStyles = (document: Document) => {
     LoaderStyle,
     IconButtonStyle,
     TypographyStyle,
+    TypingStyle,
   ]
     .join("")
     .replace(/\n|\r/g, " ");

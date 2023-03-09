@@ -1,5 +1,5 @@
 export const style = `
-@keyframes reactchat-lds-ring {
+@keyframes rc-lds-ring {
   0% {
     transform: rotate(0deg);
   }
@@ -8,35 +8,35 @@ export const style = `
   }
 }
 
-.reactchat  .lds-ring {
+.reactchat  .rc-lds-ring {
   display: inline-block;
   position: relative;
   width: 30px;
   height: 30px;
 }
 
-.reactchat  .lds-ring div {
+.reactchat  .rc-lds-ring div {
   box-sizing: border-box;
   display: block;
   position: absolute;
   width: 30px;
   height: 30px;
   /* margin: 8px; */
-  border: 4px solid #fff;
+  border: 4px solid var(--rc-palette-on-background);
   border-radius: 50%;
-  animation: reactchat-lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #fff transparent transparent transparent;
+  animation: rc-lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: var(--rc-palette-on-background) transparent transparent transparent;
 }
 
-.reactchat  .lds-ring div:nth-child(1) {
+.reactchat  .rc-lds-ring div:nth-child(1) {
   animation-delay: -0.45s;
 }
 
-.reactchat  .lds-ring div:nth-child(2) {
+.reactchat  .rc-lds-ring div:nth-child(2) {
   animation-delay: -0.3s;
 }
 
-.reactchat  .lds-ring div:nth-child(3) {
+.reactchat  .rc-lds-ring div:nth-child(3) {
   animation-delay: -0.15s;
 }
 `;

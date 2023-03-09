@@ -11,7 +11,7 @@ export const Loader = () => {
         overflow: "hidden",
       }}
     >
-      <div className="lds-ring">
+      <div className="rc-lds-ring">
         <div></div>
         <div></div>
         <div></div>

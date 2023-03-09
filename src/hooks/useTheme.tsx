@@ -20,6 +20,7 @@ export const ThemeContext = React.createContext<ThemeProps>({
     onRight: "",
     onRightSecondary: "",
     background: "",
+    onBackground: "",
     onContrast: "",
     contrast: "",
     composer: "",
