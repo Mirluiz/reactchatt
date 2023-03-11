@@ -140,12 +140,12 @@ export interface Image {
 
 ### Custom renders
 
-|                    |                Description                 |                          Type                          |
-| :----------------: | :----------------------------------------: | :----------------------------------------------------: | ----- | -------- | ------------------------- |
-| renderTextMessage  |            Custom text message             | `(message: MessageTextProps, order: MessageOrder <br/> | "end" | "middle" | "single") => JSX.Element` |
-| renderImageMessage |            Custom image message            | `(message: MessageImageProps,order: MessageOrder <br/> | "end" | "middle" | "single") => JSX.Element` |
-| renderFileMessage  |            Custom file message             | `(message: MessageFileProps, order: MessageOrder <br/> | "end" | "middle" | "single") => JSX.Element` |
-|  renderAnyMessage  | Any message render. Just put type -> 'any' | `(message: MessageCoreProps, order: MessageOrder <br/> | "end" | "middle" | "single") => JSX.Element` |
+|                    |                Description                 | Type                                                              |
+|:------------------:|:------------------------------------------:|:------------------------------------------------------------------|
+| renderTextMessage  |            Custom text message             | `(message: MessageTextProps, order: MessageOrder) => JSX.Element` |
+| renderImageMessage |            Custom image message            | `(message: MessageImageProps,order: MessageOrder) => JSX.Element` |
+| renderFileMessage  |            Custom file message             | `(message: MessageFileProps, order: MessageOrder) => JSX.Element` |
+|  renderAnyMessage  | Any message render. Just put type -> 'any' | `(message: MessageCoreProps, order: MessageOrder) => JSX.Element` |
 
 ### Types
 
