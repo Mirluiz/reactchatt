@@ -1,4 +1,4 @@
-# react chat component | BETA
+# react chat component
 
 <p align="center">
  <img src='https://github.com/Mirluiz/reactchatt/blob/master/demo.gif'/>
@@ -27,7 +27,7 @@ import { ReactChat } from "reactchatt";
 ### Props
 
 |             |              Description               |         Type          | Default  |
-|:-----------:|:--------------------------------------:|:---------------------:|:--------:|
+| :---------: | :------------------------------------: | :-------------------: | :------: |
 |  messages   |           Array of messages            | `Array<MessageProps>` |    []    |
 | placeholder |          Composer placeholder          |       `string`        |  Write   |
 |   typing    |            Typing animation            |       `boolean`       |  false   |
@@ -42,7 +42,7 @@ import { ReactChat } from "reactchatt";
 ### Events
 
 |                          |                      Description                      |                       Type                       |
-|:------------------------:|:-----------------------------------------------------:|:------------------------------------------------:|
+| :----------------------: | :---------------------------------------------------: | :----------------------------------------------: |
 |      onMessageClick      |                     Message click                     |              `(id: string) => void`              |
 |    onMessageDblClick     |                 Message double click                  |              `(id: string) => void`              |
 |    onMessageItemClick    | Message item click callback<br/> (e.g Multi messages) |     `(message: string, id: string) => void;`     |
@@ -59,19 +59,18 @@ import { ReactChat } from "reactchatt";
 2. MessageTextProps;
 
 ```typescript
-
 interface MessageTextProps {
-  text: string;
-  id: string;
-  title: string;
-  avatar?: string;
-  status: MessageStatus;
-  edited?: boolean;
-  date: Date;
-  dateFormat?: string;
-  type: "text";
-  repliedMessage?: MessageProps;
-  owner: Owner;
+	text: string;
+	id: string;
+	title: string;
+	avatar?: string;
+	status: MessageStatus;
+	edited?: boolean;
+	date: Date;
+	dateFormat?: string;
+	type: "text";
+	repliedMessage?: MessageProps;
+	owner: Owner;
 }
 ```
 
@@ -141,23 +140,24 @@ export interface Image {
 
 ### Custom renders
 
-|                    |                Description                 |                          Type                          | 
-|:------------------:|:------------------------------------------:|:------------------------------------------------------:| 
-| renderTextMessage  |            Custom text message             |   `(message: MessageTextProps, order: MessageOrder  <br/>   | "end" | "middle" | "single") => JSX.Element` |
+|                    |                Description                 |                          Type                          |
+| :----------------: | :----------------------------------------: | :----------------------------------------------------: | ----- | -------- | ------------------------- |
+| renderTextMessage  |            Custom text message             | `(message: MessageTextProps, order: MessageOrder <br/> | "end" | "middle" | "single") => JSX.Element` |
 | renderImageMessage |            Custom image message            | `(message: MessageImageProps,order: MessageOrder <br/> | "end" | "middle" | "single") => JSX.Element` |
-| renderFileMessage  |            Custom file message             |   `(message: MessageFileProps, order: MessageOrder  <br/>   | "end" | "middle" | "single") => JSX.Element` |
-|  renderAnyMessage  | Any message render. Just put type -> 'any' |   `(message: MessageCoreProps, order: MessageOrder  <br/>   | "end" | "middle" | "single") => JSX.Element` |
+| renderFileMessage  |            Custom file message             | `(message: MessageFileProps, order: MessageOrder <br/> | "end" | "middle" | "single") => JSX.Element` |
+|  renderAnyMessage  | Any message render. Just put type -> 'any' | `(message: MessageCoreProps, order: MessageOrder <br/> | "end" | "middle" | "single") => JSX.Element` |
 
 ### Types
+
 ```typescript
 type MessageOrder = "start" | "end" | "middle" | "single";
 
 enum MessageStatus {
-  created = 0,
-  pending = 1,
-  sent = 2,
-  read = 3,
-  error = 4,
+	created = 0,
+	pending = 1,
+	sent = 2,
+	read = 3,
+	error = 4,
 }
 ```
 

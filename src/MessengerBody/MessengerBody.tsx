@@ -67,6 +67,7 @@ const MessengerBody: FC<
 
   useLayoutEffect(() => {
     if (!containerRef.current || !scrollContainerRef.current) return;
+
     scheduler.addToStack({
       fn: (data) => {
         runAnimation(data);
@@ -77,6 +78,8 @@ const MessengerBody: FC<
   }, [messages]);
 
   const runAnimation = (messages: Array<MessageProps>) => {
+    if (!containerRef.current || !scrollContainerRef.current) return;
+
     prevArr.current = [...renderMessages.current];
     prevHeight.current = scrollContainerRef.current?.scrollHeight;
     renderMessages.current = [...messages];
@@ -94,7 +97,8 @@ const MessengerBody: FC<
     const wasAdded =
       prevArr.current &&
       prevArr.current[prevArr.current?.length - 1]?.id !==
-        _messages[_messages.length - 1]?.id;
+        _messages[_messages.length - 1]?.id &&
+      _messages.length - prevArr.current?.length === 1;
 
     if (!wasAdded) {
       if (scrollContainerRef.current.scrollTop === 0 && prevHeight.current) {
@@ -102,6 +106,14 @@ const MessengerBody: FC<
           scrollContainerRef.current.scrollHeight - prevHeight.current;
       }
 
+      return;
+    }
+
+    let bottomOffset =
+      scrollContainerRef.current.scrollHeight -
+      scrollContainerRef.current.scrollTop -
+      scrollContainerRef.current.offsetHeight;
+    if (bottomOffset > scrollContainerRef.current.offsetHeight * 2) {
       return;
     }
 
@@ -280,30 +292,33 @@ const MessengerBody: FC<
 
   return (
     <>
-      <div className="rc-messages-scroll" ref={scrollContainerRef}>
-        <div
-          className="rc-container"
-          ref={containerRef}
-          onScroll={() => {
-            if (!containerRef.current) return;
-            let { current } = containerRef;
-            if (current.scrollTop - threshold > 0) {
-              endReachedStatus.current = false;
-            }
-            if (
-              !endReachedStatus?.current &&
-              current.scrollTop - threshold < 0 &&
-              current.scrollHeight > current.clientHeight
-            ) {
-              endReachedStatus.current = true;
-              onEdgeReach && onEdgeReach();
-            }
-          }}
-        >
+      <div
+        className="rc-messages-scroll"
+        onScroll={() => {
+          if (!scrollContainerRef.current) return;
+
+          let { current } = scrollContainerRef;
+
+          if (current.scrollTop - threshold > 0) {
+            endReachedStatus.current = false;
+          }
+
+          if (
+            !endReachedStatus?.current &&
+            current.scrollTop - threshold <= 0 &&
+            current.scrollHeight > current.clientHeight
+          ) {
+            endReachedStatus.current = true;
+            onEdgeReach && onEdgeReach();
+          }
+        }}
+        ref={scrollContainerRef}
+      >
+        <div className="rc-container" ref={containerRef}>
           <div className="rc-list">
             {renderMessages.current.map((message, index) => {
               return (
-                <>
+                <div key={message.id}>
                   {days &&
                     !sameDate(
                       renderMessages.current[index - 1],
@@ -315,11 +330,7 @@ const MessengerBody: FC<
                         format={props.dateFormat}
                       />
                     )}
-                  <Layer
-                    id={message.id}
-                    position={getPosition(message)}
-                    key={message.id}
-                  >
+                  <Layer id={message.id} position={getPosition(message)}>
                     <>
                       {isText(message) &&
                         renderTextMessage(
@@ -343,7 +354,7 @@ const MessengerBody: FC<
                         )}
                     </>
                   </Layer>
-                </>
+                </div>
               );
             })}
           </div>

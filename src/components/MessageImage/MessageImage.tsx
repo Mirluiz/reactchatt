@@ -58,7 +58,7 @@ const Images: FC<{ messageId: string; images: Array<Image> | undefined }> = (
   props
 ) => {
   const { messageId, images } = props;
-  const { onMessageItemClick } = useChat().props;
+  const { onMessageItemClick, onMessageClick } = useChat().props;
 
   const height = useRef(300);
   const singleImage = images?.length === 1 && images[0];
@@ -74,6 +74,13 @@ const Images: FC<{ messageId: string; images: Array<Image> | undefined }> = (
     >
       {singleImage ? (
         <div
+          onClick={(e) => {
+            if (onMessageClick) {
+              onMessageClick(messageId);
+              e.preventDefault();
+              e.stopPropagation();
+            }
+          }}
           className={"rc-singleImage_container"}
           style={{
             height: Math.min(singleImage.height, 300) + "px",
@@ -131,6 +138,7 @@ const Images: FC<{ messageId: string; images: Array<Image> | undefined }> = (
 
                 return (
                   <li
+                    key={img.id}
                     className={"rc-li"}
                     style={{
                       gridColumnEnd: `span 1`,

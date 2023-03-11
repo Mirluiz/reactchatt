@@ -1,6 +1,6 @@
 {
   "name": "reactchatt",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "types": "dist/type.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -52,5 +52,9 @@
   "description": "",
   "dependencies": {
     "rollup-plugin-import-css": "^3.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mirluiz/reactchatt"
   }
 }

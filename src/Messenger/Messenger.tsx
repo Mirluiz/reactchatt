@@ -20,6 +20,7 @@ import { ejectStyles } from "../utils/style";
 import { PartialMessengerProps } from "./MessengerType";
 import { ThemeContext } from "../hooks";
 import { MessageOrder } from "../@types/message";
+import { ErrorBoundary } from "../boundaries";
 
 const Messenger: FC<
   PartialMessengerProps & {
@@ -68,62 +69,64 @@ const Messenger: FC<
   }, [props.theme]);
 
   return (
-    <ThemeContext.Provider value={setTheme(props.theme)}>
-      <ChatContext.Provider
-        value={{
-          days: props.days !== undefined ? props.days : true,
-          getPosition: (m) => {
-            return m.owner.id === props.me ? "right" : "left";
-          },
-          props: {
-            ...props,
-            avatar: props.avatar !== undefined ? props.avatar : true,
-            title: props.title !== undefined ? props.title : true,
-          },
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            height: "100%",
-            width: "100%",
+    <ErrorBoundary>
+      <ThemeContext.Provider value={setTheme(props.theme)}>
+        <ChatContext.Provider
+          value={{
+            days: props.days !== undefined ? props.days : true,
+            getPosition: (m) => {
+              return m.owner.id === props.me ? "right" : "left";
+            },
+            props: {
+              ...props,
+              avatar: props.avatar !== undefined ? props.avatar : true,
+              title: props.title !== undefined ? props.title : true,
+            },
           }}
         >
-          <div className="reactchat">
-            <MessengerBody
-              threshold={props?.threshold ?? 0}
-              typing={props?.typing ?? false}
-              typingInfo={props.typingInfo ?? props.typingInfo}
-              date={props?.date ?? true}
-              dateFormat={props?.dateFormat ?? "MMMM D"}
-              title={props?.title ?? false}
-              avatar={props?.avatar ?? true}
-              pulling={props?.pulling ?? true}
-              loading={props?.loading ?? false}
-              renderTextMessage={renderTextMessage}
-              renderImageMessage={renderImageMessage}
-              renderFileMessage={renderFileMessage}
-              renderAny={props?.renderAny ?? (() => <></>)}
-              messages={props?.messages ?? []}
-            />
-            <MessengerComposer
-              placeholder={props?.placeholder ?? "Write"}
-              onFocus={props.onFocus}
-              onTextChange={props.onTextChange}
-              onAttachmentChange={props.onAttachmentChange}
-              onSendClick={props.onSendClick}
-              onLeftIconClick={props.onLeftIconClick}
-              onRightIconClick={props.onRightIconClick}
-              onComposerReplyCancel={props.onComposerReplyCancel}
-              leftIcon={props?.leftIcon ?? leftIcon}
-              rightIcon={props?.rightIcon ?? rightIcon}
-              sendIcon={props?.sendIcon ?? sendIcon}
-              composerReplyMessage={props?.composerReplyMessage}
-            />
+          <div
+            style={{
+              display: "flex",
+              height: "100%",
+              width: "100%",
+            }}
+          >
+            <div className="reactchat">
+              <MessengerBody
+                threshold={props?.threshold ?? 0}
+                typing={props?.typing ?? false}
+                typingInfo={props.typingInfo ?? props.typingInfo}
+                date={props?.date ?? true}
+                dateFormat={props?.dateFormat ?? "MMMM D"}
+                title={props?.title ?? false}
+                avatar={props?.avatar ?? true}
+                pulling={props?.pulling ?? true}
+                loading={props?.loading ?? false}
+                renderTextMessage={renderTextMessage}
+                renderImageMessage={renderImageMessage}
+                renderFileMessage={renderFileMessage}
+                renderAny={props?.renderAny ?? (() => <></>)}
+                messages={props?.messages ?? []}
+              />
+              <MessengerComposer
+                placeholder={props?.placeholder ?? "Write"}
+                onFocus={props.onFocus}
+                onTextChange={props.onTextChange}
+                onAttachmentChange={props.onAttachmentChange}
+                onSendClick={props.onSendClick}
+                onLeftIconClick={props.onLeftIconClick}
+                onRightIconClick={props.onRightIconClick}
+                onComposerReplyCancel={props.onComposerReplyCancel}
+                leftIcon={props?.leftIcon ?? leftIcon}
+                rightIcon={props?.rightIcon ?? rightIcon}
+                sendIcon={props?.sendIcon ?? sendIcon}
+                composerReplyMessage={props?.composerReplyMessage}
+              />
+            </div>
           </div>
-        </div>
-      </ChatContext.Provider>
-    </ThemeContext.Provider>
+        </ChatContext.Provider>
+      </ThemeContext.Provider>
+    </ErrorBoundary>
   );
 };
 

@@ -7,5 +7,5 @@ export * from "./MessengerComposer";
 export { default as MessengerBody } from "./MessengerBody";
 export * from "./MessengerBody";
 
-export { default as ReactChat } from "./Messenger";
-export * from "./Messenger";
+export { default as ReactChat } from "./Messenger/index";
+export * from "./Messenger/index";

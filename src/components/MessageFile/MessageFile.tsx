@@ -126,7 +126,14 @@ const Files: FC<{
   return (
     <div className={"rc-message-files"}>
       {files?.map((file, index) => {
-        return <_File file={file} message={message} position={position} />;
+        return (
+          <_File
+            key={file.id}
+            file={file}
+            message={message}
+            position={position}
+          />
+        );
       })}
     </div>
   );
